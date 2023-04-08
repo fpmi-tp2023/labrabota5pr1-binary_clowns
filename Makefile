@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -lsqlite3 -Iinclude
 main_obj = obj/main.o
-#obj = obj/controller.o obj/model.o
+obj = obj/controller.o obj/model.o
 run: build 
 	./bin/main
 build: mkdirs $(main_obj) $(obj)
