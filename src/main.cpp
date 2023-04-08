@@ -14,18 +14,53 @@ int main(){
                 //signing in
                 stop = true;
                 break;
+
                 case 2:
                 //signing up 
                 break;
-                case 3:
+
+                case 0:
                 return 0;
                 break;
+
                 default:
                 std::cout<<"Incorrect number, try again!\n";
                 break;
             }
         }
-        
+        stop = false;
+        bool is_admin;//check if user admin
+        while(!stop){
+            if(is_admin){
+            std::cout<<"What are you want to do?\n1:change user \n2: \n0: exit\n";
+            std::cin>>req;
+                switch(req){
+                    case 0:
+                    return 0;
+
+                    case 1:
+                    stop = true;
+                    break;
+
+                    default:
+                    break;
+                }
+            }else{
+            std::cout<<"What are you want to do?\n1:change user \n2: \n0: exit\n";
+            std::cin>>req;
+                switch(req){
+                    case 0:
+                    return 0;
+
+                    case 1:
+                    stop = true;
+                    break;
+
+                    default:
+                    break;
+                }
+            }
+        }
     }
     
 }
