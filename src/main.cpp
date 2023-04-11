@@ -40,7 +40,7 @@ int main()
             if (is_admin)
             {
                 std::string text = "What are you want to do?\n"
-                                   "1:change user \n"
+                                   "1:Change user \n"
                                    "2:Information about orders\n"
                                    "3:Information about the most popular composition\n"
                                    "4:Information about urgent orders\n"
@@ -91,7 +91,7 @@ int main()
                 }
                 else if (req == 9)
                 {
-                    // change price
+                    // Change price
                 }
                 else if (req == 10)
                 {
@@ -99,11 +99,18 @@ int main()
                 }
                 else
                 {
+                    std::cout << "Incorrect number, try again!\n";
                 }
             }
             else
             {
-                std::cout << "What are you want to do?\n1:change user \n2: \n0: exit\n";
+                std::string text = "What are you want to do?\n"
+                                   "1:Change user \n"
+                                   "2:Information about orders\n"
+                                   "3:Make an order\n"
+                                   "4:Get information about your orders\n"
+                                   "0: exit\n";
+                std::cout << text;
                 std::cin >> req;
                 if (req == 0)
                 {
@@ -113,11 +120,21 @@ int main()
                 {
                     break;
                 }
-                else if ()
+                else if (req = 2)
                 {
+                    // orders sum
+                }
+                else if (req == 3)
+                {
+                    // make order
+                }
+                else if (req == 4)
+                {
+                    // info about user's orders
                 }
                 else
                 {
+                    std::cout << "Incorrect number, try again!\n";
                 }
             }
         }
