@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "controller.h"
 
 int main()
 {
@@ -9,6 +10,7 @@ int main()
         bool authorized;
         int req;
         bool stop = false;
+        std::string login, password;
         while (!stop)
         {
             std::cout << "You are not authorized\n1: sign in\n2: sign up\n0: exit\n";
@@ -16,7 +18,15 @@ int main()
             switch (req)
             {
             case 1:
-                // signing in
+                std::cout<<"Enter your login:\n";
+                std::cin>>login;
+                std::cout<<"Enter your password:\n";
+                std::cin>>password;
+                if(checkLogin(login) && checkPassword(password)){
+                    
+                }else{
+                    std::cout<<"Incorrect login or password! Try again\n";
+                }
                 stop = true;
                 break;
 
