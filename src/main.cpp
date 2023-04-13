@@ -40,10 +40,33 @@ int main()
                 break;
 
             case 2:
-                std::cout << "Create your login\n";
-                std::cin >> login;
-                if (!checkLogin)
+                while (true)
+                {
+                    std::cout << "Write '!q' if you want to go back to main menu\nCreate your login\n";
+                    std::cin >> login;
+                    if (login == "!q")
+                    {
+                        stop = true;
+                        break;
+                    }
+                    if (checkLogin(login, db))
+                    {
+                        std::cout << "This login is already occupied. Try another one!\n";
+                    }
+                    else
+                    {
+                        std::cout<<"Create your password\n";
+                        std::cin>>password;
+                        break;
+                    }
+                }
+                if (stop)
+                {
+                    stop = false;
                     break;
+                }
+
+                break;
 
             case 0:
                 return 0;
