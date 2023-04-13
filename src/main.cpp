@@ -18,21 +18,32 @@ int main()
             switch (req)
             {
             case 1:
-                std::cout<<"Enter your login:\n";
-                std::cin>>login;
-                std::cout<<"Enter your password:\n";
-                std::cin>>password;
-                if(checkLogin(login, db) && checkPassword(password, db)){
-                    
-                }else{
-                    std::cout<<"Incorrect login or password!\n";//0 to exit, 1 to try again
+                std::cout << "Enter your login:\n";
+                std::cin >> login;
+                std::cout << "Enter your password:\n";
+                std::cin >> password;
+                if (checkLogin(login, db))
+                {
+                    if (checkPassword(login, password, db))
+                    {
+                        stop = true;
+                    }
+                    else
+                    {
+                        std::cout << "Incorrect login or password!\n";
+                    }
                 }
-                stop = true;
+                else
+                {
+                    std::cout << "Incorrect login or password!\n";
+                }
                 break;
 
             case 2:
-                // signing up
-                break;
+                std::cout << "Create your login\n";
+                std::cin >> login;
+                if (!checkLogin)
+                    break;
 
             case 0:
                 return 0;
