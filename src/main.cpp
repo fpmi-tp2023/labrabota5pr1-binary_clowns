@@ -22,10 +22,10 @@ int main()
                 std::cin>>login;
                 std::cout<<"Enter your password:\n";
                 std::cin>>password;
-                if(checkLogin(login) && checkPassword(password)){
+                if(checkLogin(login, db) && checkPassword(password, db)){
                     
                 }else{
-                    std::cout<<"Incorrect login or password! Try again\n";
+                    std::cout<<"Incorrect login or password!\n";//0 to exit, 1 to try again
                 }
                 stop = true;
                 break;
