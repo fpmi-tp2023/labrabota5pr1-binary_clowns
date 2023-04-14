@@ -14,5 +14,14 @@ bool checkPassword(std::string login, std::string password, char *db)
 }
 
 bool createUser(std::string login, std::string password, char *db){
-    return 1;
+    std::string* values = new std::string[3];
+    values[0] = login;
+    values[1] = password;
+    values[2] = "FALSE";
+    if(insertOperation("Customer", values, 3, db)){
+        return 1;
+    }else{
+        return 0;
+    }
+    
 }
