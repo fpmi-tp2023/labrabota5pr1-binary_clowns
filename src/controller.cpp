@@ -12,3 +12,7 @@ bool checkPassword(std::string login, std::string password, char *db)
     std::string passwordFromDB = getCustomerPassword(db, login);
     return (password == passwordFromDB); // add hash
 }
+
+void createUser(std::string login, std::string password, char *db){
+    return;
+}

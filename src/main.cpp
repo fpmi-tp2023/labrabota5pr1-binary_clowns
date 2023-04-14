@@ -55,8 +55,8 @@ int main()
                     }
                     else
                     {
-                        std::cout<<"Create your password\n";
-                        std::cin>>password;
+                        std::cout << "Create your password\n";
+                        std::cin >> password;
                         break;
                     }
                 }
@@ -65,7 +65,7 @@ int main()
                     stop = false;
                     break;
                 }
-
+                createUser(login, password, db);
                 break;
 
             case 0:
