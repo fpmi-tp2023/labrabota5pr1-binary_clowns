@@ -65,7 +65,11 @@ int main()
                     stop = false;
                     break;
                 }
-                createUser(login, password, db);
+                if(createUser(login, password, db)){
+                    std::cout<<"Success!\n";
+                }else{
+                    std::cout<<"Something went wrong, please try again!\n";
+                }
                 break;
 
             case 0:

@@ -13,6 +13,6 @@ bool checkPassword(std::string login, std::string password, char *db)
     return (password == passwordFromDB); // add hash
 }
 
-void createUser(std::string login, std::string password, char *db){
-    return;
+bool createUser(std::string login, std::string password, char *db){
+    return 1;
 }
