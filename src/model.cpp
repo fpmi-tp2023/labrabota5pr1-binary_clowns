@@ -30,12 +30,14 @@ std::string getCustomerPassword(char *dbName, std::string login)
 bool insertOperation(std::string table, std::string *values, int numberOfValues, char *dbName)
 {
     int result;
-    std::string query = "INSERT INTO " + table + "(Login, Password, ) VALUES (";
+    std::string query = "INSERT INTO  " + table + " (Login, Password, Admin)\n"
+    "VALUES ('";
     for (int i = 0; i < numberOfValues - 1; i++)
     {
-        query += values[i] + ", ";
+        query += values[i] + "', '";
     }
-    query += values[numberOfValues - 1] + " );";
+    query += values[numberOfValues - 1] + "' );";
+    std::cout<<"Query: \n"<< query<<"\n";
     sqlite3 *db = connectToDataBase(dbName);
     if (db == nullptr)
     {
