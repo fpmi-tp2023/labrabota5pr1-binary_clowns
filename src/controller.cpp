@@ -23,5 +23,4 @@ bool createUser(std::string login, std::string password, char *db){
     }else{
         return 0;
     }
-    
 }
