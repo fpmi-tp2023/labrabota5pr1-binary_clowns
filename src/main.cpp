@@ -65,10 +65,13 @@ int main()
                     stop = false;
                     break;
                 }
-                if(createUser(login, password, db)){
-                    std::cout<<"Success!\n";
-                }else{
-                    std::cout<<"Something went wrong, please try again!\n";
+                if (createUser(login, password, db))
+                {
+                    std::cout << "Success!\n";
+                }
+                else
+                {
+                    std::cout << "Something went wrong, please try again!\n";
                 }
                 break;
 
@@ -98,6 +101,8 @@ int main()
                                    "8: Change columns in tables\n"
                                    "9: Change price of a flower\n"
                                    "10: Get information about all orders\n"
+                                   "11: Delete user by login\n"
+                                   "12: Give admin role by login\n"
                                    "0: exit\n";
                 std::cout << text;
                 std::cin >> req;
@@ -157,6 +162,7 @@ int main()
                                    "2: Information about orders\n"
                                    "3: Make an order\n"
                                    "4: Get information about your orders\n"
+                                   "5: Delete user\n"
                                    "0: exit\n";
                 std::cout << text;
                 std::cin >> req;
