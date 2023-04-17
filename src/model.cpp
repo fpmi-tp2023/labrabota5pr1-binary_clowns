@@ -48,15 +48,30 @@ bool lookForData(char *dbName, std::string table, std::string column, std::strin
     result = sqlite3_exec(db, query.c_str(), lookForData_callback, &callback_data, &errMsg);
     if (errMsg)
     {
-        std::cout << errMsg << "\n";
+        std::cerr << errMsg << "\n";
     }
     return callback_data;
 }
 
+static int getCustomerPassword_callback(void *data, int argc, char **argv, char **azColName)
+{
+    std::string &result = *(std::string *)data;
+    result = argv[0];
+    return 0;
+}
+
 std::string getCustomerPassword(char *dbName, std::string login)
 {
-    std::string password = "aaa";
-    //"SELECT *password FROM Customer WHERE login = *login*"
+    //"SELECT Password FROM Customer WHERE login = *login*"
+    std::string password;
+    char *errMsg;
+    int result;
+    sqlite3 *db = connectToDataBase(dbName);
+    std::string query = "SELECT Password FROM Customer WHERE Login = '" + login + "';";
+    result = sqlite3_exec(db, query.c_str(), getCustomerPassword_callback, &password, &errMsg);
+    if(errMsg){
+        std::cerr<<errMsg<<"\n";
+    }
     return password;
 }
 

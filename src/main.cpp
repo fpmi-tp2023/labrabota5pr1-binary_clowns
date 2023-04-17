@@ -88,16 +88,16 @@ int main()
             if (is_admin)
             {
                 std::string text = "What are you want to do?\n"
-                                   "1:Change user \n"
-                                   "2:Information about orders\n"
-                                   "3:Information about the most popular composition\n"
-                                   "4:Information about urgent orders\n"
-                                   "5:Information about used flowers\n"
-                                   "6:Information about all sold compositions\n"
-                                   "7:Insert information into table\n"
-                                   "8:Change columns in tables\n"
-                                   "9:Change price of a flower\n"
-                                   "10:Get information about all orders\n"
+                                   "1: Change user \n"
+                                   "2: Information about orders\n"
+                                   "3: Information about the most popular composition\n"
+                                   "4: Information about urgent orders\n"
+                                   "5: Information about used flowers\n"
+                                   "6: Information about all sold compositions\n"
+                                   "7: Insert information into table\n"
+                                   "8: Change columns in tables\n"
+                                   "9: Change price of a flower\n"
+                                   "10: Get information about all orders\n"
                                    "0: exit\n";
                 std::cout << text;
                 std::cin >> req;
@@ -153,10 +153,10 @@ int main()
             else
             {
                 std::string text = "What are you want to do?\n"
-                                   "1:Change user \n"
-                                   "2:Information about orders\n"
-                                   "3:Make an order\n"
-                                   "4:Get information about your orders\n"
+                                   "1: Change user \n"
+                                   "2: Information about orders\n"
+                                   "3: Make an order\n"
+                                   "4: Get information about your orders\n"
                                    "0: exit\n";
                 std::cout << text;
                 std::cin >> req;
