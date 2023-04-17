@@ -5,6 +5,7 @@
 int main()
 {
     char *db = "greenhouse.db";
+    controller c(db);
     while (true)
     {
         bool authorized;
@@ -22,9 +23,9 @@ int main()
                 std::cin >> login;
                 std::cout << "Enter your password:\n";
                 std::cin >> password;
-                if (checkLogin(login, db))
+                if (c.checkLogin(login, db))
                 {
-                    if (checkPassword(login, password, db))
+                    if (c.checkPassword(login, password, db))
                     {
                         stop = true;
                     }
@@ -49,7 +50,7 @@ int main()
                         stop = true;
                         break;
                     }
-                    if (checkLogin(login, db))
+                    if (c.checkLogin(login, db))
                     {
                         std::cout << "This login is already occupied. Try another one!\n";
                     }
@@ -65,7 +66,7 @@ int main()
                     stop = false;
                     break;
                 }
-                if (createUser(login, password, db))
+                if (c.createUser(login, password, db))
                 {
                     std::cout << "Success!\n";
                 }
