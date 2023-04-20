@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -lsqlite3 -Iinclude
+CFLAGS = -lsqlite3 -lssl -lcrypto -Iinclude
 main_obj = obj/main.o
 obj = obj/controller.o obj/model.o
 run: build 
