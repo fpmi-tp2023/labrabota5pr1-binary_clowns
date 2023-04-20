@@ -1,5 +1,4 @@
 #include <iostream>
-#include <openssl/md5.h>
 #include "model.h"
 
 class controller
@@ -9,6 +8,7 @@ public:
     bool checkLogin(std::string login, char *db);
     bool checkPassword(std::string login, std::string password, char *db);
     bool createUser(std::string login, std::string password, char *db);
+    std::string md5(const std::string &str);
 
 private:
     model *dbModel;
