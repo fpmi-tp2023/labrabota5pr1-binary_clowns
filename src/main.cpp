@@ -85,6 +85,7 @@ int main()
                 break;
             }
         }
+        std::cout<<"You are authorized as "<<login<<". Welcome!\n";
         stop = false;
         bool is_admin; // check if user admin
         while (!stop)
@@ -99,7 +100,7 @@ int main()
                                    "5: Information about used flowers\n"
                                    "6: Information about all sold compositions\n"
                                    "7: Insert information into table\n"
-                                   "8: Change columns in tables\n"
+                                   "8: Update/delete information\n"
                                    "9: Change price of a flower\n"
                                    "10: Get information about all orders\n"
                                    "11: Delete user by login\n"
@@ -151,6 +152,14 @@ int main()
                 {
                     // information about all orders(one day)
                 }
+                else if (req == 11)
+                {
+                    // delete user
+                }
+                else if (req == 12)
+                {
+                    // giveAdmin
+                }
                 else
                 {
                     std::cout << "Incorrect number, try again!\n";
@@ -186,6 +195,10 @@ int main()
                 else if (req == 4)
                 {
                     // info about user's orders
+                }
+                else if (req == 5)
+                {
+                    // Delete user
                 }
                 else
                 {

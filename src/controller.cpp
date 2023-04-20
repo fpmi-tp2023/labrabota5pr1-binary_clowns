@@ -15,7 +15,10 @@ bool controller::checkLogin(std::string login, char *db)
 bool controller::checkPassword(std::string login, std::string password, char *db)
 {
     std::string passwordFromDB = dbModel->getCustomerPassword(db, login);
-    return (password == passwordFromDB); // add hash
+    std::string hashPassword;
+    //Transform(hashPassword, password);
+    std::cout<<hashPassword<<"\n";
+    return (hashPassword == passwordFromDB); // add hash
 }
 
 bool controller::createUser(std::string login, std::string password, char *db)

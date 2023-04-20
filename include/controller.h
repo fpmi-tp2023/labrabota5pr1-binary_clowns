@@ -1,4 +1,5 @@
 #include <iostream>
+#include <openssl/md5.h>
 #include "model.h"
 
 class controller
