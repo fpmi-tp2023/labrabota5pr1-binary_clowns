@@ -23,9 +23,9 @@ int main()
                 std::cin >> login;
                 std::cout << "Enter your password:\n";
                 std::cin >> password;
-                if (c.checkLogin(login, db))
+                if (c.checkLogin(login))
                 {
-                    if (c.checkPassword(login, password, db))
+                    if (c.checkPassword(login, password))
                     {
                         stop = true;
                     }
@@ -50,7 +50,7 @@ int main()
                         stop = true;
                         break;
                     }
-                    if (c.checkLogin(login, db))
+                    if (c.checkLogin(login))
                     {
                         std::cout << "This login is already occupied. Try another one!\n";
                     }
@@ -66,7 +66,7 @@ int main()
                     stop = false;
                     break;
                 }
-                if (c.createUser(login, password, db))
+                if (c.createUser(login, password))
                 {
                     std::cout << "Success!\n";
                 }
@@ -87,7 +87,7 @@ int main()
         }
         std::cout<<"You are authorized as "<<login<<". Welcome!\n";
         stop = false;
-        bool is_admin; // check if user admin
+        bool is_admin = c.isAdmin(login);
         while (!stop)
         {
             if (is_admin)

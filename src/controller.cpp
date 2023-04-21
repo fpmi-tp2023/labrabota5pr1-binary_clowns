@@ -10,25 +10,25 @@ controller::controller(char *dbName){
 
 }
 
-bool controller::checkLogin(std::string login, char *db)
+bool controller::checkLogin(std::string login)
 {
-    return dbModel->lookForData(db, "Customer", "Login", login);
+    return dbModel->lookForData("Customer", "Login", login);
 }
 
-bool controller::checkPassword(std::string login, std::string password, char *db)
+bool controller::checkPassword(std::string login, std::string password)
 {
-    std::string passwordFromDB = dbModel->getCustomerPassword(db, login);
+    std::string passwordFromDB = dbModel->getCustomerPassword(login);
     std::string hashPassword = md5(password);
     return (hashPassword == passwordFromDB);
 }
 
-bool controller::createUser(std::string login, std::string password, char *db)
+bool controller::createUser(std::string login, std::string password)
 {
     std::string *values = new std::string[3];
     values[0] = login;
     values[1] = md5(password);
     values[2] = "0";
-    if (dbModel->insertOperation("Customer", values, 3, db))
+    if (dbModel->insertOperation("Customer", values, 3))
     {
         return 1;
     }
@@ -52,4 +52,8 @@ std::string controller::md5(const std::string &str){
     ss << std::hex << std::setw(2) << std::setfill('0') << static_cast<int>( hash[i] );
   }
   return ss.str();
+}
+
+bool controller::isAdmin(std::string login){
+    return dbModel->checkAdmin(login);
 }

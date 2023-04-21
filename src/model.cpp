@@ -17,7 +17,7 @@ void model::connectToDataBase(char *name)
     }
 }
 
-int model::lookForData_callback(void *data, int argc, char **argv, char **azColName)
+int model::lookForDataNCheckAdmin_callback(void *data, int argc, char **argv, char **azColName)
 {
     bool &result = *(bool *)data;
     if (argv[0][0] == '0')
@@ -31,7 +31,7 @@ int model::lookForData_callback(void *data, int argc, char **argv, char **azColN
     return 0;
 }
 
-bool model::lookForData(char *dbName, std::string table, std::string column, std::string data)
+bool model::lookForData(std::string table, std::string column, std::string data)
 {
     // query for finding login "SELECT EXISTS(SELECT *column* FROM *table* WHERE *column* = *data*)"
     int result;
@@ -47,7 +47,7 @@ bool model::lookForData(char *dbName, std::string table, std::string column, std
     {
         return 0;
     }
-    result = sqlite3_exec(db, query.c_str(), lookForData_callback, &callback_data, &errMsg);
+    result = sqlite3_exec(db, query.c_str(), lookForDataNCheckAdmin_callback, &callback_data, &errMsg);
     if (errMsg)
     {
         std::cerr << errMsg << "\n";
@@ -62,7 +62,7 @@ int model::getCustomerPassword_callback(void *data, int argc, char **argv, char 
     return 0;
 }
 
-std::string model::getCustomerPassword(char *dbName, std::string login)
+std::string model::getCustomerPassword(std::string login)
 {
     //"SELECT Password FROM Customer WHERE login = *login*"
     std::string password;
@@ -77,7 +77,7 @@ std::string model::getCustomerPassword(char *dbName, std::string login)
     return password;
 }
 
-bool model::insertOperation(std::string table, std::string *values, int numberOfValues, char *dbName)
+bool model::insertOperation(std::string table, std::string *values, int numberOfValues)
 {
     int result;
     std::string query = "INSERT INTO  " + table + " (Login, Password, Admin)\n"
@@ -98,4 +98,17 @@ bool model::insertOperation(std::string table, std::string *values, int numberOf
         return 0;
     }
     return 1;
+}
+
+bool model::checkAdmin(std::string login){
+    int result;
+    bool callback_data;
+    char *errMsg;
+    std::string query = "SELECT Admin FROM Customer WHERE Login = '" + login + "';";
+    result = sqlite3_exec(db, query.c_str(), lookForDataNCheckAdmin_callback, &callback_data, &errMsg);
+    if (errMsg)
+    {
+        std::cerr << errMsg << "\n";
+    }
+    return callback_data;
 }
