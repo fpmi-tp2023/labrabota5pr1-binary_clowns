@@ -17,5 +17,5 @@
 ## Авторы
 
 [Капитанов Иван](https://github.com/Vantwozz)
-[Харитончик Егор]((https://github.com/lJegerl))
+[Харитончик Егор](https://github.com/lJegerl)
 [Антонченко Евгений](https://github.com/marbjorn)
