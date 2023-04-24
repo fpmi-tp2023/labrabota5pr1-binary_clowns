@@ -57,3 +57,7 @@ std::string controller::md5(const std::string &str){
 bool controller::isAdmin(std::string login){
     return dbModel->checkAdmin(login);
 }
+
+std::string controller::mostPopularCompose(){
+    
+}

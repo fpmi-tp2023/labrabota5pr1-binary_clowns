@@ -10,6 +10,7 @@ public:
     bool createUser(std::string login, std::string password);
     std::string md5(const std::string &str);
     bool isAdmin(std::string login);
+    std::string mostPopularCompose();
 
 private:
     model *dbModel;

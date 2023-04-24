@@ -55,26 +55,11 @@ bool model::lookForData(std::string table, std::string column, std::string data)
     return callback_data;
 }
 
-int model::getCustomerPassword_callback(void *data, int argc, char **argv, char **azColName)
-{
-    std::string &result = *(std::string *)data;
-    result = argv[0];
-    return 0;
-}
-
 std::string model::getCustomerPassword(std::string login)
 {
     //"SELECT Password FROM Customer WHERE login = *login*"
-    std::string password;
-    char *errMsg;
-    int result;
     std::string query = "SELECT Password FROM Customer WHERE Login = '" + login + "';";
-    result = sqlite3_exec(db, query.c_str(), getCustomerPassword_callback, &password, &errMsg);
-    if (errMsg)
-    {
-        std::cerr << errMsg << "\n";
-    }
-    return password;
+    return getStringFromDB(query);
 }
 
 bool model::insertOperation(std::string table, std::string *values, int numberOfValues)
@@ -100,12 +85,42 @@ bool model::insertOperation(std::string table, std::string *values, int numberOf
     return 1;
 }
 
-bool model::checkAdmin(std::string login){
+bool model::checkAdmin(std::string login)
+{
     int result;
     bool callback_data;
     char *errMsg;
     std::string query = "SELECT Admin FROM Customer WHERE Login = '" + login + "';";
     result = sqlite3_exec(db, query.c_str(), lookForDataNCheckAdmin_callback, &callback_data, &errMsg);
+    if (errMsg)
+    {
+        std::cerr << errMsg << "\n";
+    }
+    return callback_data;
+}
+
+std::string model::getMostPopularCompose()
+{
+    std::string query;
+    return getStringFromDB(query);
+}
+
+int model::getStringFromBD_callback(void *data, int argc, char **argv, char **azColName)
+{
+    std::string &result = *(std::string *)data;
+    for (int i = 0; i < argc; i++)
+    {
+        result = argv[0];
+    }
+    return 0;
+}
+
+std::string model::getStringFromDB(std::string query)
+{
+    int result;
+    std::string callback_data;
+    char *errMsg;
+    result = sqlite3_exec(db, query.c_str(), getStringFromBD_callback, &callback_data, &errMsg);
     if (errMsg)
     {
         std::cerr << errMsg << "\n";
