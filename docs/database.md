@@ -1,6 +1,6 @@
 # Проектировка базы данных
 ## Таблица базы данных Greenhouse
-![Greenhouse](Greenhouse.png)
+![Greenhouse](https://github.com/fpmi-tp2023/labrabota5pr1-binary_clowns/blob/pages/docs/page_indo/db_info/Greenhouse.png)
 
 ## Таблицы
  
