@@ -13,3 +13,9 @@
 * [Схема базы данных](database.md)
 * [Функциональные требования](func_requirements.md)
 * [Ссылки на репозитории](additional_pages.md)
+
+## Авторы
+
+[Капитанов Иван](https://github.com/Vantwozz)
+[Харитончик Егор]((https://github.com/lJegerl))
+[Антонченко Евгений](https://github.com/marbjorn)
