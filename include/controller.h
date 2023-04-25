@@ -11,6 +11,7 @@ public:
     std::string md5(const std::string &str);
     bool isAdmin(std::string login);
     std::string mostPopularCompose();
+    int getNumOfUrgentOrders();
 
 private:
     model *dbModel;

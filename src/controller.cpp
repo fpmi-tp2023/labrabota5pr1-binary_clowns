@@ -61,3 +61,9 @@ bool controller::isAdmin(std::string login){
 std::string controller::mostPopularCompose(){
     return dbModel->getMostPopularCompose();
 }
+
+
+int controller::getNumOfUrgentOrders(){
+//number
+return 0;
+}

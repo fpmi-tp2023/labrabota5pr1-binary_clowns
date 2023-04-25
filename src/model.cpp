@@ -59,7 +59,7 @@ std::string model::getCustomerPassword(std::string login)
 {
     //"SELECT Password FROM Customer WHERE login = *login*"
     std::string query = "SELECT Password FROM Customer WHERE Login = '" + login + "';";
-    return getStringFromDB(query);
+    return getSingleStringFromDB(query);
 }
 
 bool model::insertOperation(std::string table, std::string *values, int numberOfValues)
@@ -101,26 +101,53 @@ bool model::checkAdmin(std::string login)
 
 std::string model::getMostPopularCompose()
 {
-    std::string query;
-    return getStringFromDB(query);
+    std::string query; // query for most popular compose
+    return getSingleStringFromDB(query);
 }
 
-int model::getStringFromBD_callback(void *data, int argc, char **argv, char **azColName)
+int model::getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName)
 {
     std::string &result = *(std::string *)data;
-    for (int i = 0; i < argc; i++)
-    {
-        result = argv[0];
-    }
+    result = argv[0];
     return 0;
 }
 
-std::string model::getStringFromDB(std::string query)
+std::string model::getSingleStringFromDB(std::string query)
 {
     int result;
     std::string callback_data;
     char *errMsg;
-    result = sqlite3_exec(db, query.c_str(), getStringFromBD_callback, &callback_data, &errMsg);
+    result = sqlite3_exec(db, query.c_str(), getSingleStringFromBD_callback, &callback_data, &errMsg);
+    if (errMsg)
+    {
+        std::cerr << errMsg << "\n";
+    }
+    return callback_data;
+}
+
+int model::getTableView_callback(void *data, int argc, char **argv, char **azColName)
+{
+    std::vector<std::string> &vec = *(std::vector<std::string> *)data;
+    int i;
+    std::string part;
+    for (i = 0; i < argc; i++)
+    {
+        part += azColName[i];
+        part += " : ";
+        part += (argv[i] ? argv[i] : "NULL");
+        part += "\n";
+    }
+    part += ("\n");
+    vec.push_back(part);
+    return 0;
+}
+
+std::vector<std::string> model::getTableView(std::string query)
+{
+    int result;
+    std::vector<std::string> callback_data;
+    char *errMsg;
+    result = sqlite3_exec(db, query.c_str(), getTableView_callback, &callback_data, &errMsg);
     if (errMsg)
     {
         std::cerr << errMsg << "\n";

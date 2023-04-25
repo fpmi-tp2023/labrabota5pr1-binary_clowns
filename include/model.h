@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <sqlite3.h>
+#include <vector>
+
 class model
 {
 public:
@@ -11,20 +13,20 @@ public:
     static int lookForDataNCheckAdmin_callback(void *data, int argc, char **argv, char **azColName);
     bool lookForData(std::string table, std::string column, std::string data);
 
-
     std::string getCustomerPassword(std::string login);
-    
+
     bool insertOperation(std::string table, std::string *values, int numberOfValues);
 
     bool checkAdmin(std::string login);
 
     std::string getMostPopularCompose();
 
-
 private:
+    static int getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName);
+    std::string getSingleStringFromDB(std::string query);
 
-    static int getStringFromBD_callback(void *data, int argc, char **argv, char **azColName);
-    std::string getStringFromDB(std::string query);
-    
+    static int getTableView_callback(void *data, int argc, char **argv, char **azColName);
+    std::vector<std::string> getTableView(std::string query);
+
     sqlite3 *db;
 };
