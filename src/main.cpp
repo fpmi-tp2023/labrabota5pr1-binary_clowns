@@ -215,7 +215,7 @@ int main()
                                         {
                                             while (true)
                                             {
-                                                std::cout << i << "Condition:\nColumn:\n";
+                                                std::cout << i << "Values to change:\nColumn:\n";
                                                 std::cin >> column;
                                                 if (c.checkColumn(tablename, column))
                                                 {
@@ -228,8 +228,10 @@ int main()
                                             }
                                             std::cout << "Data:\n";
                                             std::cin >> data;
-                                            conditions.push_back(column + " = '" + data + "'");
+                                            values.push_back(column + " = '" + data + "'");
                                         }
+                                    }else{
+                                        
                                     }
                                     break;
                                 }
@@ -237,6 +239,8 @@ int main()
                                 {
                                     stop = true;
                                     break;
+                                }else{
+                                    std::cout<<"No such table! Try again!\n";
                                 }
                             }
                         }

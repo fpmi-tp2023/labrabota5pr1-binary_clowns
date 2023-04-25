@@ -29,7 +29,7 @@ public:
 
     bool checkColumn(std::string tableName, std::string columnName);
 
-    std::string model::getNumOfColumns(std::string tableName);
+    std::string getNumOfColumns(std::string tableName);
 
 private:
     static int getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName);
