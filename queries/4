@@ -1,0 +1,3 @@
+SELECT COUNT(ID) AS Amount FROM [Order]
+GROUP BY  JULIANDAY(Completion) - JULIANDAY(Acceptance)
+HAVING Completion != 'NULL'
