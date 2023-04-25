@@ -52,6 +52,7 @@ bool model::lookForData(std::string table, std::string column, std::string data)
     {
         std::cerr << errMsg << "\n";
     }
+    delete errMsg;
     return callback_data;
 }
 
@@ -96,6 +97,7 @@ bool model::checkAdmin(std::string login)
     {
         std::cerr << errMsg << "\n";
     }
+    delete errMsg;
     return callback_data;
 }
 
@@ -122,6 +124,7 @@ std::string model::getSingleStringFromDB(std::string query)
     {
         std::cerr << errMsg << "\n";
     }
+    delete errMsg;
     return callback_data;
 }
 
@@ -137,7 +140,6 @@ int model::getTableView_callback(void *data, int argc, char **argv, char **azCol
         part += (argv[i] ? argv[i] : "NULL");
         part += "\n";
     }
-    part += ("\n");
     vec.push_back(part);
     return 0;
 }
@@ -152,5 +154,26 @@ std::vector<std::string> model::getTableView(std::string query)
     {
         std::cerr << errMsg << "\n";
     }
+    delete errMsg;
     return callback_data;
+}
+
+std::vector<std::string> model::getTableInfo(std::string table)
+{
+    std::string query = "SELECT * FROM " + table;
+    return getTableView(query);
+}
+
+void model::giveAdmin(std::string login){
+    std::string query = "UPDATE Customer SET Admin = '1' WHERE Login = '" + login + "';"; 
+    int result;
+    std::vector<std::string> callback_data;
+    char *errMsg;
+    result = sqlite3_exec(db, query.c_str(), getTableView_callback, &callback_data, &errMsg);
+    if (errMsg)
+    {
+        std::cerr << errMsg << "\n";
+    }
+    delete errMsg;
+    return;
 }

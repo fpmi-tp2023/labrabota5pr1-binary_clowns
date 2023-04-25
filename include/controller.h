@@ -1,5 +1,7 @@
 #include <iostream>
 #include "model.h"
+#include <vector>
+#include <string>
 
 class controller
 {
@@ -12,6 +14,8 @@ public:
     bool isAdmin(std::string login);
     std::string mostPopularCompose();
     int getNumOfUrgentOrders();
+    std::string getUsers();
+    void giveAdmin(std::string login);
 
 private:
     model *dbModel;

@@ -85,7 +85,7 @@ int main()
                 break;
             }
         }
-        std::cout<<"You are authorized as "<<login<<". Welcome!\n";
+        std::cout << "You are authorized as " << login << ". Welcome!\n";
         stop = false;
         bool is_admin = c.isAdmin(login);
         while (!stop)
@@ -116,7 +116,7 @@ int main()
                 {
                     break;
                 }
-                else if (req = 2)
+                else if (req == 2)
                 {
                     // orders sum
                 }
@@ -158,7 +158,20 @@ int main()
                 }
                 else if (req == 12)
                 {
-                    // giveAdmin
+                    std::cout << "Choose user to give him admin role:\n";
+                    std::cout << c.getUsers();
+                    std::string userLogin;
+                    std::cout<<"Enter user's login:\n";
+                    std::cin >> userLogin;
+                    if (c.checkLogin(userLogin) && !c.isAdmin(userLogin))
+                    {
+                        c.giveAdmin(userLogin);
+                        std::cout<<"Success!\n";
+                    }
+                    else
+                    {
+                        std::cout<<"No such user or user is already admin!\n";
+                    }
                 }
                 else
                 {
