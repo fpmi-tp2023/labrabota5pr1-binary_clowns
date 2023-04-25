@@ -68,16 +68,11 @@ std::string controller::mostPopularCompose()
     return dbModel->getMostPopularCompose();
 }
 
-int controller::getNumOfUrgentOrders()
-{
-    // number
-    return 0;
-}
 
-std::string controller::getUsers()
+std::string controller::getFullTable(std::string tablename)
 {
     std::string info;
-    std::vector<std::string> vectorFromDB = dbModel->getTableInfo("Customer", "");
+    std::vector<std::string> vectorFromDB = dbModel->getTableInfo(tablename,"");
     for (int i = 0; i < vectorFromDB.size(); i++)
     {
         info += vectorFromDB[i] + "\n";
@@ -85,13 +80,21 @@ std::string controller::getUsers()
     return info;
 }
 
+void controller::giveAdmin(std::string login)
+{
+    dbModel->giveAdmin(login);
+    return;
+}
+
 bool controller::checkTable(std::string table)
 {
     return dbModel->checkTable(table);
 }
 
-void controller::giveAdmin(std::string login)
-{
-    dbModel->giveAdmin(login);
-    return;
+bool controller::checkColumn(std::string table, std::string column){
+    return dbModel->checkColumn(table, column);
+}
+
+int controller::getNumOfColumns(std::string tableName){
+    return stoi(dbModel->getNumOfColumns(tableName));
 }

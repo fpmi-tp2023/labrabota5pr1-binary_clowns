@@ -25,7 +25,11 @@ public:
 
     void giveAdmin(std::string login);
 
-    bool checkTable(std::string tablename);
+    bool checkTable(std::string tableName);
+
+    bool checkColumn(std::string tableName, std::string columnName);
+
+    std::string model::getNumOfColumns(std::string tableName);
 
 private:
     static int getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName);

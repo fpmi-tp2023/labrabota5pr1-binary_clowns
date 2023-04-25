@@ -164,12 +164,14 @@ std::vector<std::string> model::getTableInfo(std::string table, std::string cond
     return getTableView(query);
 }
 
-bool model::checkTable(std::string tablename){
+bool model::checkTable(std::string tableName)
+{
     int result;
     bool callback_data;
     char *errMsg;
     std::string query = "SELECT EXISTS"
-                        "(SELECT name FROM sqlite_master WHERE type = 'table' AND name = '"+ tablename + "')";
+                        "(SELECT name FROM sqlite_master WHERE type = 'table' AND name = '" +
+                        tableName + "')";
 
     if (db == nullptr)
     {
@@ -184,8 +186,34 @@ bool model::checkTable(std::string tablename){
     return callback_data;
 }
 
-void model::giveAdmin(std::string login){
-    std::string query = "UPDATE Customer SET Admin = '1' WHERE Login = '" + login + "';"; 
+bool model::checkColumn(std::string tableName, std::string columnName)
+{
+    int result;
+    bool callback_data;
+    char *errMsg;
+    std::string query = "SELECT COUNT(*) FROM pragma_table_info('" + tableName + "') WHERE name='" + columnName + "';";
+    if (db == nullptr)
+    {
+        return 0;
+    }
+    result = sqlite3_exec(db, query.c_str(), lookForDataNCheckAdmin_callback, &callback_data, &errMsg);
+    if (errMsg)
+    {
+        std::cerr << errMsg << "\n";
+    }
+    delete errMsg;
+    return callback_data;
+}
+
+std::string model::getNumOfColumns(std::string tableName)
+{
+    std::string query = "SELECT COUNT(cid) FROM pragma_table_info('" + tableName + "');";
+    return getSingleStringFromDB(query);
+}
+
+void model::giveAdmin(std::string login)
+{
+    std::string query = "UPDATE Customer SET Admin = '1' WHERE Login = '" + login + "';";
     int result;
     std::vector<std::string> callback_data;
     char *errMsg;

@@ -143,21 +143,115 @@ int main()
                 else if (req == 8)
                 {
                     // update/delete
-                    std::cout << "1:Update\n2:Delete\n";
-                    std::cin >> req;
+
                     while (true)
                     {
-                        if (req == 1)
+                        std::cout << "1:Update\n2:Delete\n0:Exit\n";
+                        std::cin >> req;
+                        std::string tablename;
+                        if (req == 1 || req == 2)
                         {
-                            
+                            while (true)
+                            {
+                                std::cout << "Choose table or type \"!q\" to go back to menu:\n";
+                                std::cin >> tablename;
+                                std::vector<std::string> conditions;
+                                std::string column;
+                                std::string data;
+                                if (c.checkTable(tablename))
+                                {
+                                    std::cout << "Table:\n"
+                                              << c.getFullTable(tablename);
+                                    int numOfIterations;
+                                    while (true)
+                                    {
+                                        std::cout << "How many additional conditions do you want?:\n";
+                                        std::cin >> numOfIterations;
+                                        if (numOfIterations >= 1)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            std::cout << "Number of conditions must be greater then 0! Try again!\n";
+                                        }
+                                    }
+                                    for (int i = 1; i <= numOfIterations; i++)
+                                    {
+                                        while (true)
+                                        {
+                                            std::cout << i << "Condition:\nColumn:\n";
+                                            std::cin >> column;
+                                            if (c.checkColumn(tablename, column))
+                                            {
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                std::cout << "No such column! Try again!\n";
+                                            }
+                                        }
+                                        std::cout << "Data:\n";
+                                        std::cin >> data;
+                                        conditions.push_back(column + " = '" + data + "'");
+                                    }
+                                    if (req == 1)
+                                    {
+                                        std::vector<std::string> values;
+                                        while (true)
+                                        {
+                                            std::cout << "How many columns do you want to change?:\n";
+                                            std::cin >> numOfIterations;
+                                            if (numOfIterations >= 1 && numOfIterations <= c.getNumOfColumns(tablename))
+                                            {
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                std::cout << "Number of columns must be greater then 0 and less then " << c.getNumOfColumns(tablename) + 1 << "! Try again!\n";
+                                            }
+                                        }
+                                        for (int i = 1; i <= numOfIterations; i++)
+                                        {
+                                            while (true)
+                                            {
+                                                std::cout << i << "Condition:\nColumn:\n";
+                                                std::cin >> column;
+                                                if (c.checkColumn(tablename, column))
+                                                {
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    std::cout << "No such column! Try again!\n";
+                                                }
+                                            }
+                                            std::cout << "Data:\n";
+                                            std::cin >> data;
+                                            conditions.push_back(column + " = '" + data + "'");
+                                        }
+                                    }
+                                    break;
+                                }
+                                else if (tablename == "!q")
+                                {
+                                    stop = true;
+                                    break;
+                                }
+                            }
                         }
-                        else if (req == 2)
+                        else if (req == 0)
                         {
-                            
+                            break;
                         }
                         else
                         {
                             std::cout << "Incorrect number, try again!\n";
+                        }
+                        if (stop)
+                        {
+                            stop = false;
+                            break;
                         }
                     }
                 }
@@ -176,7 +270,7 @@ int main()
                 else if (req == 12)
                 {
                     std::cout << "Choose user to give him admin role:\n";
-                    std::cout << c.getUsers();
+                    std::cout << c.getFullTable("Customer");
                     std::string userLogin;
                     std::cout << "Enter user's login:\n";
                     std::cin >> userLogin;
