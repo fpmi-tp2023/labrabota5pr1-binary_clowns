@@ -143,6 +143,23 @@ int main()
                 else if (req == 8)
                 {
                     // update/delete
+                    std::cout << "1:Update\n2:Delete\n";
+                    std::cin >> req;
+                    while (true)
+                    {
+                        if (req == 1)
+                        {
+                            
+                        }
+                        else if (req == 2)
+                        {
+                            
+                        }
+                        else
+                        {
+                            std::cout << "Incorrect number, try again!\n";
+                        }
+                    }
                 }
                 else if (req == 9)
                 {
@@ -161,16 +178,16 @@ int main()
                     std::cout << "Choose user to give him admin role:\n";
                     std::cout << c.getUsers();
                     std::string userLogin;
-                    std::cout<<"Enter user's login:\n";
+                    std::cout << "Enter user's login:\n";
                     std::cin >> userLogin;
                     if (c.checkLogin(userLogin) && !c.isAdmin(userLogin))
                     {
                         c.giveAdmin(userLogin);
-                        std::cout<<"Success!\n";
+                        std::cout << "Success!\n";
                     }
                     else
                     {
-                        std::cout<<"No such user or user is already admin!\n";
+                        std::cout << "No such user or user is already admin!\n";
                     }
                 }
                 else

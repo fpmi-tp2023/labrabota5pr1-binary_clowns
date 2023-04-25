@@ -16,6 +16,7 @@ public:
     int getNumOfUrgentOrders();
     std::string getUsers();
     void giveAdmin(std::string login);
+    bool checkTable(std::string table);
 
 private:
     model *dbModel;

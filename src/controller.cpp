@@ -77,7 +77,7 @@ int controller::getNumOfUrgentOrders()
 std::string controller::getUsers()
 {
     std::string info;
-    std::vector<std::string> vectorFromDB = dbModel->getTableInfo("Customer");
+    std::vector<std::string> vectorFromDB = dbModel->getTableInfo("Customer", "");
     for (int i = 0; i < vectorFromDB.size(); i++)
     {
         info += vectorFromDB[i] + "\n";
@@ -85,7 +85,13 @@ std::string controller::getUsers()
     return info;
 }
 
-void controller::giveAdmin(std::string login){
+bool controller::checkTable(std::string table)
+{
+    return dbModel->checkTable(table);
+}
+
+void controller::giveAdmin(std::string login)
+{
     dbModel->giveAdmin(login);
     return;
 }

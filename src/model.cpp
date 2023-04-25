@@ -158,10 +158,30 @@ std::vector<std::string> model::getTableView(std::string query)
     return callback_data;
 }
 
-std::vector<std::string> model::getTableInfo(std::string table)
+std::vector<std::string> model::getTableInfo(std::string table, std::string conditions)
 {
-    std::string query = "SELECT * FROM " + table;
+    std::string query = "SELECT * FROM " + table + conditions + ";";
     return getTableView(query);
+}
+
+bool model::checkTable(std::string tablename){
+    int result;
+    bool callback_data;
+    char *errMsg;
+    std::string query = "SELECT EXISTS"
+                        "(SELECT name FROM sqlite_master WHERE type = 'table' AND name = '"+ tablename + "')";
+
+    if (db == nullptr)
+    {
+        return 0;
+    }
+    result = sqlite3_exec(db, query.c_str(), lookForDataNCheckAdmin_callback, &callback_data, &errMsg);
+    if (errMsg)
+    {
+        std::cerr << errMsg << "\n";
+    }
+    delete errMsg;
+    return callback_data;
 }
 
 void model::giveAdmin(std::string login){
