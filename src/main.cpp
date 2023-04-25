@@ -180,7 +180,7 @@ int main()
                                     {
                                         while (true)
                                         {
-                                            std::cout << i << "Condition:\nColumn:\n";
+                                            std::cout << i << " Condition:\nColumn:\n";
                                             std::cin >> column;
                                             if (c.checkColumn(tablename, column))
                                             {
@@ -215,7 +215,7 @@ int main()
                                         {
                                             while (true)
                                             {
-                                                std::cout << i << "Values to change:\nColumn:\n";
+                                                std::cout << i << " Value to change:\nColumn:\n";
                                                 std::cin >> column;
                                                 if (c.checkColumn(tablename, column))
                                                 {
@@ -230,9 +230,11 @@ int main()
                                             std::cin >> data;
                                             values.push_back(column + " = '" + data + "'");
                                         }
+                                        //update operation 
                                     }else{
-                                        
+                                        //delete operation (reset autoincrement)
                                     }
+                                    stop = true;
                                     break;
                                 }
                                 else if (tablename == "!q")
