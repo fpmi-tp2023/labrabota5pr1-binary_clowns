@@ -155,7 +155,6 @@ int main()
                             {
                                 std::cout << "Choose table or type \"!q\" to go back to menu:\n";
                                 std::cin >> tablename;
-                                std::vector<std::string> conditions;
                                 std::string column;
                                 std::string data;
                                 if (c.checkTable(tablename))
@@ -163,38 +162,10 @@ int main()
                                     std::cout << "Table:\n"
                                               << c.getFullTable(tablename);
                                     int numOfIterations;
-                                    while (true)
-                                    {
-                                        std::cout << "How many additional conditions do you want?:\n";
-                                        std::cin >> numOfIterations;
-                                        if (numOfIterations >= 1)
-                                        {
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            std::cout << "Number of conditions must be greater then 0! Try again!\n";
-                                        }
-                                    }
-                                    for (int i = 1; i <= numOfIterations; i++)
-                                    {
-                                        while (true)
-                                        {
-                                            std::cout << i << " Condition:\nColumn:\n";
-                                            std::cin >> column;
-                                            if (c.checkColumn(tablename, column))
-                                            {
-                                                break;
-                                            }
-                                            else
-                                            {
-                                                std::cout << "No such column! Try again!\n";
-                                            }
-                                        }
-                                        std::cout << "Data:\n";
-                                        std::cin >> data;
-                                        conditions.push_back(column + " = '" + data + "'");
-                                    }
+                                    std::string condition;
+                                    std::cout << "Enter condition like \"*column* = '*data*'\"\n";
+                                    std::cin.ignore();
+                                    getline(std::cin, condition);
                                     if (req == 1)
                                     {
                                         std::vector<std::string> values;
@@ -230,9 +201,18 @@ int main()
                                             std::cin >> data;
                                             values.push_back(column + " = '" + data + "'");
                                         }
-                                        //update operation 
-                                    }else{
-                                        //delete operation (reset autoincrement)
+                                        // update operation
+                                    }
+                                    else
+                                    {
+                                        if (c.deleteOperatin(tablename, condition))
+                                        {
+                                            std::cout << "Success!\n";
+                                        }
+                                        else
+                                        {
+                                            std::cout << "Something went wrong!\n";
+                                        }
                                     }
                                     stop = true;
                                     break;
@@ -241,8 +221,10 @@ int main()
                                 {
                                     stop = true;
                                     break;
-                                }else{
-                                    std::cout<<"No such table! Try again!\n";
+                                }
+                                else
+                                {
+                                    std::cout << "No such table! Try again!\n";
                                 }
                             }
                         }

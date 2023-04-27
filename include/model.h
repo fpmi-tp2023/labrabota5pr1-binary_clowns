@@ -15,7 +15,7 @@ public:
 
     std::string getCustomerPassword(std::string login);
 
-    bool insertOperation(std::string table, std::string *values, int numberOfValues);
+    bool insertOperation(std::string table, std::vector<std::string> values);
 
     bool checkAdmin(std::string login);
 
@@ -30,6 +30,8 @@ public:
     bool checkColumn(std::string tableName, std::string columnName);
 
     std::string getNumOfColumns(std::string tableName);
+
+    bool deleteOperation(std::string tableName, std::string conditions);
 
 private:
     static int getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName);

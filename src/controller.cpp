@@ -24,18 +24,16 @@ bool controller::checkPassword(std::string login, std::string password)
 
 bool controller::createUser(std::string login, std::string password)
 {
-    std::string *values = new std::string[3];
-    values[0] = login;
-    values[1] = md5(password);
-    values[2] = "0";
-    if (dbModel->insertOperation("Customer", values, 3))
+    std::vector<std::string> values;
+    values.push_back(login);
+    values.push_back(md5(password));
+    values.push_back("0");
+    if (dbModel->insertOperation("Customer", values))
     {
-        delete values;
         return 1;
     }
     else
     {
-        delete values;
         return 0;
     }
 }
@@ -68,11 +66,10 @@ std::string controller::mostPopularCompose()
     return dbModel->getMostPopularCompose();
 }
 
-
 std::string controller::getFullTable(std::string tablename)
 {
     std::string info;
-    std::vector<std::string> vectorFromDB = dbModel->getTableInfo(tablename,"");
+    std::vector<std::string> vectorFromDB = dbModel->getTableInfo(tablename, "");
     for (int i = 0; i < vectorFromDB.size(); i++)
     {
         info += vectorFromDB[i] + "\n";
@@ -91,10 +88,17 @@ bool controller::checkTable(std::string table)
     return dbModel->checkTable(table);
 }
 
-bool controller::checkColumn(std::string table, std::string column){
+bool controller::checkColumn(std::string table, std::string column)
+{
     return dbModel->checkColumn(table, column);
 }
 
-int controller::getNumOfColumns(std::string tableName){
+int controller::getNumOfColumns(std::string tableName)
+{
     return stoi(dbModel->getNumOfColumns(tableName));
+}
+
+bool controller::deleteOperatin(std::string table, std::string conditions)
+{
+    return dbModel->deleteOperation(table, conditions);
 }

@@ -63,24 +63,25 @@ std::string model::getCustomerPassword(std::string login)
     return getSingleStringFromDB(query);
 }
 
-bool model::insertOperation(std::string table, std::string *values, int numberOfValues)
+bool model::insertOperation(std::string table, std::vector<std::string> values)
 {
     int result;
+    char *errMsg;
     std::string query = "INSERT INTO  " + table + " (Login, Password, Admin)\n"
                                                   "VALUES ('";
-    for (int i = 0; i < numberOfValues - 1; i++)
+    for (int i = 0; i < (values.size() - 1); i++)
     {
         query += values[i] + "', '";
     }
-    query += values[numberOfValues - 1] + "' );";
+    query += values[(values.size() - 1)] + "' );";
     if (db == nullptr)
     {
         return 0;
     }
-    result = sqlite3_exec(db, query.c_str(), NULL, NULL, NULL);
-    if (result != SQLITE_OK)
+    result = sqlite3_exec(db, query.c_str(), NULL, NULL, &errMsg);
+    if (errMsg)
     {
-        std::cerr << "SQL error: " << sqlite3_errmsg(db) << "\n";
+        std::cerr << "SQL error: " << errMsg << "\n";
         return 0;
     }
     return 1;
@@ -215,13 +216,31 @@ void model::giveAdmin(std::string login)
 {
     std::string query = "UPDATE Customer SET Admin = '1' WHERE Login = '" + login + "';";
     int result;
-    std::vector<std::string> callback_data;
     char *errMsg;
-    result = sqlite3_exec(db, query.c_str(), getTableView_callback, &callback_data, &errMsg);
+    result = sqlite3_exec(db, query.c_str(), NULL, NULL, &errMsg);
     if (errMsg)
     {
         std::cerr << errMsg << "\n";
     }
     delete errMsg;
     return;
+}
+
+bool model::deleteOperation(std::string tableName, std::string conditions)
+{
+    std::string query = "DELETE FROM " + tableName + " WHERE " + conditions;
+    int result;
+    char *errMsg;
+    result = sqlite3_exec(db, query.c_str(), NULL, NULL, &errMsg);
+    if (errMsg)
+    {
+        std::cerr << errMsg << "\n";
+        delete errMsg;
+        return 0;
+    }
+    else
+    {
+        delete errMsg;
+        return 1;
+    }
 }

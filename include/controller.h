@@ -18,6 +18,7 @@ public:
     bool checkTable(std::string table);
     bool checkColumn(std::string table, std::string column);
     int getNumOfColumns(std::string table);
+    bool deleteOperatin(std::string table, std::string conditions);
 
 private:
     model *dbModel;
