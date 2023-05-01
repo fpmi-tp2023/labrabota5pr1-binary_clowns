@@ -19,6 +19,7 @@ public:
     bool checkColumn(std::string table, std::string column);
     int getNumOfColumns(std::string table);
     bool deleteOperatin(std::string table, std::string conditions);
+    bool updateOperation(std::string table, std::vector<std::string> setColumns, std::string conditions);
 
 private:
     model *dbModel;

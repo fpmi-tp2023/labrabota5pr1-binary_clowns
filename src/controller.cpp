@@ -102,3 +102,14 @@ bool controller::deleteOperatin(std::string table, std::string conditions)
 {
     return dbModel->deleteOperation(table, conditions);
 }
+
+bool controller::updateOperation(std::string table, std::vector<std::string> setColumns, std::string conditions)
+{
+    std::string columns;
+    for (int i = 0; i < setColumns.size() - 1; i++)
+    {
+        columns += setColumns[i] + ", ";
+    }
+    columns += setColumns[setColumns.size() - 1];
+    return dbModel->updateOperation(table, columns, conditions);
+}

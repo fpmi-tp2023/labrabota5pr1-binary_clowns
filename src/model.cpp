@@ -244,3 +244,22 @@ bool model::deleteOperation(std::string tableName, std::string conditions)
         return 1;
     }
 }
+
+bool model::updateOperation(std::string tableName, std::string setString, std::string conditions)
+{
+    std::string query = "UPDATE " + tableName + " SET " + setString + " WHERE " + conditions;
+    int result;
+    char *errMsg;
+    result = sqlite3_exec(db, query.c_str(), NULL, NULL, &errMsg);
+    if (errMsg)
+    {
+        std::cerr << errMsg << "\n";
+        delete errMsg;
+        return 0;
+    }
+    else
+    {
+        delete errMsg;
+        return 1;
+    }
+}

@@ -142,8 +142,6 @@ int main()
                 }
                 else if (req == 8)
                 {
-                    // update/delete
-
                     while (true)
                     {
                         std::cout << "1:Update\n2:Delete\n0:Exit\n";
@@ -201,7 +199,14 @@ int main()
                                             std::cin >> data;
                                             values.push_back(column + " = '" + data + "'");
                                         }
-                                        // update operation
+                                        if (c.updateOperation(tablename, values, condition))
+                                        {
+                                            std::cout << "Success!\n";
+                                        }
+                                        else
+                                        {
+                                            std::cout << "Something went wrong!\n";
+                                        }
                                     }
                                     else
                                     {

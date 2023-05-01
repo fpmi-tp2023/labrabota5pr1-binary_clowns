@@ -33,6 +33,8 @@ public:
 
     bool deleteOperation(std::string tableName, std::string conditions);
 
+    bool updateOperation(std::string tableName, std::string setString, std::string conditions);
+
 private:
     static int getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName);
     std::string getSingleStringFromDB(std::string query);
