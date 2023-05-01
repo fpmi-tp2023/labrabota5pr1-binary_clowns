@@ -337,7 +337,27 @@ int main()
                 }
                 else if (req == 11)
                 {
-                    // delete user
+                    std::string loginToDelete;
+                    std::cout << "Choose user to delete:\n";
+                    std::cin >> loginToDelete;
+                    if (c.checkLogin(loginToDelete) && loginToDelete != login)
+                    {
+                        if (c.deleteUser(loginToDelete))
+                        {
+                            std::cout << "Success!\n";
+                        }
+                    }
+                    else
+                    {
+                        if (loginToDelete == login)
+                        {
+                            std::cout << "You can't delete yourself!\n";
+                        }
+                        else
+                        {
+                            std::cout << "There is no such user!\n";
+                        }
+                    }//add sequenceReset!!!
                 }
                 else if (req == 12)
                 {

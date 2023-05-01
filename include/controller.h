@@ -24,6 +24,7 @@ public:
     std::vector<std::string> getPrymaryKeys(std::string tableName);
     bool lookInVector(std::string data, std::vector<std::string> vec);
     bool insertOperation(std::string table, std::vector<std::string> values);
+    bool deleteUser(std::string login);
 
 private:
     model *dbModel;

@@ -142,3 +142,7 @@ bool controller::insertOperation(std::string table, std::vector<std::string> val
 {
     return dbModel->insertOperation(table, values);
 }
+
+bool controller::deleteUser(std::string login){
+    return dbModel->deleteOperation("Customer", ("Login = '"+ login + "';"));
+}
