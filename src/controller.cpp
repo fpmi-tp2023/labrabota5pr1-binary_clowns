@@ -123,3 +123,22 @@ std::vector<std::string> controller::getPrymaryKeys(std::string tableName)
 {
     return dbModel->getPrimaryKeys(tableName);
 }
+
+bool controller::lookInVector(std::string data, std::vector<std::string> vec)
+{
+    bool result = false;
+    for (int i = 0; i < vec.size(); i++)
+    {
+        if (vec[i] == data)
+        {
+            result = true;
+            break;
+        }
+    }
+    return result;
+}
+
+bool controller::insertOperation(std::string table, std::vector<std::string> values)
+{
+    return dbModel->insertOperation(table, values);
+}

@@ -22,6 +22,8 @@ public:
     bool updateOperation(std::string table, std::vector<std::string> setColumns, std::string conditions);
     std::vector<std::string> getColumnsNames(std::string tableName);
     std::vector<std::string> getPrymaryKeys(std::string tableName);
+    bool lookInVector(std::string data, std::vector<std::string> vec);
+    bool insertOperation(std::string table, std::vector<std::string> values);
 
 private:
     model *dbModel;

@@ -146,19 +146,61 @@ int main()
                         std::cin >> tablename;
                         std::vector<std::string> columns;
                         std::vector<std::string> PK;
+                        std::vector<std::string> values;
+                        std::string value;
                         if (c.checkTable(tablename))
                         {
-                            columns = c.getColumnsNames(tablename);
-                            PK = c.getPrymaryKeys(tablename);
-                            std::cout<<"Columns:\n";
-                            for (int i = 0; i < columns.size(); i++)
+                            while (true)
                             {
-                                std::cout<<columns[i]<<" ";
+                                values.clear();
+                                columns = c.getColumnsNames(tablename);
+                                PK = c.getPrymaryKeys(tablename);
+                                std::cout << "Columns in that table:\n";
+                                for (int i = 0; i < columns.size(); i++)
+                                {
+                                    std::cout << columns[i] << " ";
+                                }
+                                std::cout << "\nColumns with autoincriment(you cant insert something there):\n";
+                                for (int i = 0; i < PK.size(); i++)
+                                {
+                                    std::cout << PK[i] << " ";
+                                }
+                                std::cout << "\n1:If you want to insert data\n0:If you want to go back\n";
+                                std::cin >> req;
+                                if (req == 1)
+                                {
+                                    for (int i = 0; i < columns.size(); i++)
+                                    {
+                                        if (!c.lookInVector(columns[i], PK))
+                                        {
+                                            std::cout << "Enter value for column " + columns[i] + ":\n";
+                                            std::cin >> value;
+                                            values.push_back(value);
+                                        }
+                                    }
+                                    if (c.insertOperation(tablename, values))
+                                    {
+                                        std::cout << "Success!\n";
+                                    }
+                                    else
+                                    {
+                                        std::cout << "Something went wrong!\n";
+                                    }
+                                }
+                                else if (req == 0)
+                                {
+                                    stop = true;
+                                    break;
+                                }
+                                else
+                                {
+                                    std::cout << "Incorrect number, try again!\n";
+                                }
                             }
-                            std::cout<<"PK:\n";
-                            for (int i = 0; i < PK.size(); i++)
+                            if (stop)
                             {
-                                std::cout<<PK[i]<<" ";
+                                stop = false;
+                                break;
                             }
                         }
                         else if (tablename == "!q")
@@ -193,9 +235,14 @@ int main()
                                               << c.getFullTable(tablename);
                                     int numOfIterations;
                                     std::string condition;
-                                    std::cout << "Enter condition like \"*column* = '*data*'\"\n";
+                                    std::cout << "Enter condition like \"*column* = '*data*' or \"!q\" to exit\"\n";
                                     std::cin.ignore();
                                     getline(std::cin, condition);
+                                    if (condition == "!q")
+                                    {
+                                        stop = true;
+                                        break;
+                                    }
                                     if (req == 1)
                                     {
                                         std::vector<std::string> values;
