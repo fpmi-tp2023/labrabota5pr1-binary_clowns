@@ -21,6 +21,7 @@ public:
     bool deleteOperatin(std::string table, std::string conditions);
     bool updateOperation(std::string table, std::vector<std::string> setColumns, std::string conditions);
     std::vector<std::string> getColumnsNames(std::string tableName);
+    std::vector<std::string> getPrymaryKeys(std::string tableName);
 
 private:
     model *dbModel;

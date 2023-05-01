@@ -118,3 +118,8 @@ std::vector<std::string> controller::getColumnsNames(std::string tableName)
 {
     return dbModel->getColumnsNames(tableName);
 }
+
+std::vector<std::string> controller::getPrymaryKeys(std::string tableName)
+{
+    return dbModel->getPrimaryKeys(tableName);
+}

@@ -145,13 +145,20 @@ int main()
                         std::cout << "Choose table or type \"!q\" to go back to menu:\n";
                         std::cin >> tablename;
                         std::vector<std::string> columns;
+                        std::vector<std::string> PK;
                         if (c.checkTable(tablename))
                         {
                             columns = c.getColumnsNames(tablename);
+                            PK = c.getPrymaryKeys(tablename);
                             std::cout<<"Columns:\n";
                             for (int i = 0; i < columns.size(); i++)
                             {
                                 std::cout<<columns[i]<<" ";
+                            }
+                            std::cout<<"PK:\n";
+                            for (int i = 0; i < PK.size(); i++)
+                            {
+                                std::cout<<PK[i]<<" ";
                             }
                         }
                         else if (tablename == "!q")

@@ -267,7 +267,6 @@ bool model::updateOperation(std::string tableName, std::string setString, std::s
 int model::getColumnsNames_callback(void *data, int argc, char **argv, char **azColName)
 {
     std::vector<std::string> &vec = *(std::vector<std::string> *)data;
-    int i;
     std::string part = argv[0];
     vec.push_back(part);
     return 0;
@@ -280,6 +279,34 @@ std::vector<std::string> model::getColumnsNames(std::string tableName)
     std::vector<std::string> callback_data;
     char *errMsg;
     result = sqlite3_exec(db, query.c_str(), getColumnsNames_callback, &callback_data, &errMsg);
+    if (errMsg)
+    {
+        std::cerr << errMsg << "\n";
+        delete errMsg;
+    }
+    return callback_data;
+}
+
+int model::getPrimaryKeys_callback(void *data, int argc, char **argv, char **azColName)
+{
+    std::vector<std::string> &vec = *(std::vector<std::string> *)data;
+    char* nullValue = new char [1];
+    nullValue[0] = '0';
+    if (argv[5][0] != nullValue[0])
+    {
+        vec.push_back(argv[1]);
+    }
+    delete nullValue;
+    return 0;
+}
+
+std::vector<std::string> model::getPrimaryKeys(std::string tableName)
+{
+    std::string query = "PRAGMA table_info(" + tableName + " )";
+    int result;
+    std::vector<std::string> callback_data;
+    char *errMsg;
+    result = sqlite3_exec(db, query.c_str(), getPrimaryKeys_callback, &callback_data, &errMsg);
     if (errMsg)
     {
         std::cerr << errMsg << "\n";
