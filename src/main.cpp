@@ -139,6 +139,31 @@ int main()
                 else if (req == 7)
                 {
                     // insert
+                    std::string tablename;
+                    while (true)
+                    {
+                        std::cout << "Choose table or type \"!q\" to go back to menu:\n";
+                        std::cin >> tablename;
+                        std::vector<std::string> columns;
+                        if (c.checkTable(tablename))
+                        {
+                            columns = c.getColumnsNames(tablename);
+                            std::cout<<"Columns:\n";
+                            for (int i = 0; i < columns.size(); i++)
+                            {
+                                std::cout<<columns[i]<<" ";
+                            }
+                        }
+                        else if (tablename == "!q")
+                        {
+                            stop = true;
+                            break;
+                        }
+                        else
+                        {
+                            std::cout << "No such table! Try again!\n";
+                        }
+                    }
                 }
                 else if (req == 8)
                 {

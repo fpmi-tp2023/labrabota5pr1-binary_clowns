@@ -113,3 +113,8 @@ bool controller::updateOperation(std::string table, std::vector<std::string> set
     columns += setColumns[setColumns.size() - 1];
     return dbModel->updateOperation(table, columns, conditions);
 }
+
+std::vector<std::string> controller::getColumnsNames(std::string tableName)
+{
+    return dbModel->getColumnsNames(tableName);
+}

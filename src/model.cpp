@@ -263,3 +263,27 @@ bool model::updateOperation(std::string tableName, std::string setString, std::s
         return 1;
     }
 }
+
+int model::getColumnsNames_callback(void *data, int argc, char **argv, char **azColName)
+{
+    std::vector<std::string> &vec = *(std::vector<std::string> *)data;
+    int i;
+    std::string part = argv[0];
+    vec.push_back(part);
+    return 0;
+}
+
+std::vector<std::string> model::getColumnsNames(std::string tableName)
+{
+    std::string query = "SELECT name FROM pragma_table_info('" + tableName + "');";
+    int result;
+    std::vector<std::string> callback_data;
+    char *errMsg;
+    result = sqlite3_exec(db, query.c_str(), getColumnsNames_callback, &callback_data, &errMsg);
+    if (errMsg)
+    {
+        std::cerr << errMsg << "\n";
+        delete errMsg;
+    }
+    return callback_data;
+}

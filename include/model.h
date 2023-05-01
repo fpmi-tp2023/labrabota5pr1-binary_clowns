@@ -35,6 +35,12 @@ public:
 
     bool updateOperation(std::string tableName, std::string setString, std::string conditions);
 
+    static int getColumnsNames_callback(void *data, int argc, char **argv, char **azColName);
+    std::vector<std::string> getColumnsNames(std::string tableName);
+
+    static int getPrimaryKeys_callback(void *data, int argc, char **argv, char **azColName);
+    std::vector<std::string> getPrimaryKeys(std::string tableName);
+
 private:
     static int getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName);
     std::string getSingleStringFromDB(std::string query);
