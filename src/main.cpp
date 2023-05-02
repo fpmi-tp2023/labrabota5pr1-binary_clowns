@@ -103,7 +103,7 @@ int main()
                                    "8: Update/delete information\n"
                                    "9: Change price of a flower\n"
                                    "10: Give admin role by login\n"
-                                   //"12: Delete user by login\n"
+                                   //"11: Delete user by login\n"
                                    "0: exit\n";
                 std::cout << text;
                 std::cin >> req;
@@ -410,9 +410,8 @@ int main()
             {
                 std::string text = "What are you want to do?\n"
                                    "1: Change user \n"
-                                   "2: Information about orders\n"
+                                   "2: Information about your orders(money)\n"
                                    "3: Make an order\n"
-                                   "4: Get information about your orders\n"
                                    "0: exit\n";
                 std::cout << text;
                 std::cin >> req;
@@ -426,15 +425,21 @@ int main()
                 }
                 else if (req = 2)
                 {
-                    // orders sum
+                    std::vector<std::string> result;
+                    std::string firstDate;
+                    std::string secondDate;
+                    std::cout << "Enter first date in format yyyy-mm-dd:\n";
+                    std::cin >> firstDate;
+                    std::cout << "Enter secondDate in format yyyy-mm-dd:\n";
+                    std::cin >> secondDate;
+                    result = c.customerOrders(firstDate, secondDate, login);
+                    std::cout << "Information about your orders:\n";
+                    for (int i = 0; i < result.size(); i++)
+                        std::cout << result[i] << "\n";
                 }
                 else if (req == 3)
                 {
                     // make order
-                }
-                else if (req == 4)
-                {
-                    // info about user's orders
                 }
                 else
                 {

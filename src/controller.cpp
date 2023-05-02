@@ -172,3 +172,13 @@ std::vector<std::string> controller::ordersByDate(std::string date)
 {
     return dbModel->getFlowersInfo(date, date);
 }
+
+std::vector<std::string> controller::customerOrders(std::string fDate, std::string sDate, std::string login)
+{
+    return dbModel->getCustomerOrders(fDate, sDate, getIDByLogin(login));
+}
+
+std::string controller::getIDByLogin(std::string login)
+{
+    return dbModel->getIdByLogin(login);
+}

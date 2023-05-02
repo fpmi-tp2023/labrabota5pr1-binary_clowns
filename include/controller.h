@@ -30,6 +30,8 @@ public:
     std::vector<std::string> flowersInfo(std::string fDate, std::string sDate);
     std::vector<std::string> soldCompose();
     std::vector<std::string> ordersByDate(std::string date);
+    std::vector<std::string> customerOrders(std::string fDate, std::string sDate, std::string login);
+    std::string getIDByLogin(std::string login);
 
 private:
     model *dbModel;

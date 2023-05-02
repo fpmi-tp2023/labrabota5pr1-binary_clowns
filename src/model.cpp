@@ -362,12 +362,12 @@ std::vector<std::string> model::getFlowersInfo(std::string fDate, std::string sD
                         " WHERE [Order].Completion != 'NULL' AND [Order].Completion >= '" +
                         fDate +
                         "' AND [Order].Completion <= '" + sDate + "'"
-                                                                 ") A"
-                                                                 " INNER JOIN OrderComp ON OrderComp.OrderID == A.ID"
-                                                                 " GROUP BY OrderComp.CompositionID"
-                                                                 ") F ON FlowerComp.CompositionID == F.CompositionID"
-                                                                 " INNER JOIN Flower ON Flower.ID = FlowerComp.FlowerID"
-                                                                 " GROUP BY Flower.Kind";
+                                                                  ") A"
+                                                                  " INNER JOIN OrderComp ON OrderComp.OrderID == A.ID"
+                                                                  " GROUP BY OrderComp.CompositionID"
+                                                                  ") F ON FlowerComp.CompositionID == F.CompositionID"
+                                                                  " INNER JOIN Flower ON Flower.ID = FlowerComp.FlowerID"
+                                                                  " GROUP BY Flower.Kind";
     return getTableView(query);
 }
 
@@ -386,4 +386,35 @@ std::vector<std::string> model::getSoldCompose()
                         " INNER JOIN Composition ON Composition.ID = F.CompositionID"
                         " GROUP BY FlowerComp.CompositionID";
     return getTableView(query);
+}
+
+std::vector<std::string> model::getCustomerOrders(std::string fDate, std::string sDate, std::string ID)
+{
+    std::string query = "SELECT SUM(K.TotalPrice) as EarnPerPeriod"
+                        " FROM"
+                        "(	SELECT FlowerComp.CompositionID, F.TotalAmount,"
+                        " SUM(FlowersAmount*Flower.Price) as CompPrice,"
+                        " SUM(FlowersAmount*Flower.Price)*F.TotalAmount as TotalPrice"
+                        " FROM FlowerComp"
+                        " INNER JOIN ("
+                        "SELECT OrderComp.CompositionID, OrderComp.OrderID, SUM(OrderComp.CompositionAmount) as TotalAmount"
+                        " FROM ("
+                        "SELECT [Order].ID FROM [Order]"
+                        " WHERE [Order].Completion != 'NULL' AND [Order].Completion > '" +
+                        fDate + "'"
+                                " AND [Order].Completion < '" +
+                        sDate + "' AND [Order].CustomerID = '" + ID + "'"
+                                                                      ") A"
+                                                                      " INNER JOIN OrderComp ON OrderComp.OrderID == A.ID"
+                                                                      " GROUP BY OrderComp.CompositionID"
+                                                                      ") F ON FlowerComp.CompositionID == F.CompositionID"
+                                                                      " INNER JOIN Flower ON Flower.ID = FlowerComp.FlowerID"
+                                                                      " GROUP BY FlowerComp.CompositionID"
+                                                                      ") K";
+    return getTableView(query);
+}
+
+std::string model::getIdByLogin(std::string login)
+{
+    return getSingleStringFromDB(("SELECT ID FROM Customer WHERE Login = '" + login +"';"));
 }
