@@ -122,7 +122,9 @@ int main()
                 }
                 else if (req == 3)
                 {
-                    // the most popular comp
+                    std::vector<std::string> result = c.mostPopularCompose();
+                    std::cout << "Information about most popular compose:\n";
+                    std::cout << result[0];
                 }
                 else if (req == 4)
                 {

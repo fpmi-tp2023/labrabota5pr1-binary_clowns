@@ -12,7 +12,6 @@ public:
     bool createUser(std::string login, std::string password);
     std::string md5(const std::string &str);
     bool isAdmin(std::string login);
-    std::string mostPopularCompose();
     std::string getFullTable(std::string tablename);
     void giveAdmin(std::string login);
     bool checkTable(std::string table);
@@ -26,6 +25,7 @@ public:
     bool insertOperation(std::string table, std::vector<std::string> values);
     bool deleteUser(std::string login);
     bool updateSQLSequence(std::string table, std::string column);
+    std::vector<std::string> mostPopularCompose();
 
 
 private:

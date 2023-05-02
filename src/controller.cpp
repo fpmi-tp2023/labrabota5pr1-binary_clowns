@@ -61,11 +61,6 @@ bool controller::isAdmin(std::string login)
     return dbModel->checkAdmin(login);
 }
 
-std::string controller::mostPopularCompose()
-{
-    return dbModel->getMostPopularCompose();
-}
-
 std::string controller::getFullTable(std::string tablename)
 {
     std::string info;
@@ -151,4 +146,9 @@ bool controller::deleteUser(std::string login)
 bool controller::updateSQLSequence(std::string table, std::string column)
 {
     return dbModel->updateSQLSequence(table, column);
+}
+
+std::vector<std::string> controller::mostPopularCompose()
+{
+    return dbModel->getMostPopularCompose();
 }
