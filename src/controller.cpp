@@ -157,3 +157,8 @@ std::vector<std::string> controller::urgentOrders()
 {
     return dbModel->getUrgentOrders();
 }
+
+std::vector<std::string> controller::flowersInfo(std::string fDate, std::string sDate)
+{
+    return dbModel->getFlowersInfo(fDate, sDate);
+}

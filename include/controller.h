@@ -27,6 +27,7 @@ public:
     bool updateSQLSequence(std::string table, std::string column);
     std::vector<std::string> mostPopularCompose();
     std::vector<std::string> urgentOrders();
+    std::vector<std::string> flowersInfo(std::string fDate, std::string sDate);
 
 private:
     model *dbModel;

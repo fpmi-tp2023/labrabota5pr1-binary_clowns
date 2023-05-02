@@ -125,7 +125,7 @@ int main()
                     std::vector<std::string> result = c.mostPopularCompose();
                     std::cout << "Information about most popular compose:\n";
                     for (int i = 0; i < result.size(); i++)
-                        std::cout << result[i]<<"\n";
+                        std::cout << result[i] << "\n";
                 }
                 else if (req == 4)
                 {
@@ -133,11 +133,22 @@ int main()
                     std::vector<std::string> result = c.urgentOrders();
                     std::cout << "Information about urgent orders compose:\n";
                     for (int i = 0; i < result.size(); i++)
-                        std::cout << result[i]<<"\n";
+                        std::cout << result[i] << "\n";
                 }
                 else if (req == 5)
                 {
                     // used flowers
+                    std::vector<std::string> result;
+                    std::string firstDate;
+                    std::string secondDate;
+                    std::cout << "Enter first date in format yyyy-dd-mm:\n";
+                    std::cin >> firstDate;
+                    std::cout << "Enter secondDate in format yyyy-dd-mm:\n";
+                    std::cin >> secondDate;
+                    result = c.flowersInfo(firstDate, secondDate);
+                    std::cout << "Information about used flowers:\n";
+                    for (int i = 0; i < result.size(); i++)
+                        std::cout << result[i] << "\n";
                 }
                 else if (req == 6)
                 {
@@ -359,7 +370,7 @@ int main()
                         std::cout << "No such user or user is already admin!\n";
                     }
                 }
-                else if (req == 12)
+                /*else if (req == 12)
                 {
                     std::string loginToDelete;
                     std::cout << c.getFullTable("Customer");
@@ -383,7 +394,7 @@ int main()
                             std::cout << "There is no such user!\n";
                         }
                     }
-                }
+                }*/
                 else
                 {
                     std::cout << "Incorrect number, try again!\n";

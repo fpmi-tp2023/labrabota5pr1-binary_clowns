@@ -45,6 +45,8 @@ public:
 
     std::vector<std::string> getUrgentOrders();
 
+    std::vector<std::string> getFlowersInfo(std::string fDate, std::string sDate);
+
 private:
     static int getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName);
     std::string getSingleStringFromDB(std::string query);
