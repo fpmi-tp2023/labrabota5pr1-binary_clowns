@@ -85,7 +85,7 @@ int main()
                 break;
             }
         }
-        std::cout<<"You are authorized as "<<login<<". Welcome!\n";
+        std::cout << "You are authorized as " << login << ". Welcome!\n";
         stop = false;
         bool is_admin = c.isAdmin(login);
         while (!stop)
@@ -103,8 +103,8 @@ int main()
                                    "8: Update/delete information\n"
                                    "9: Change price of a flower\n"
                                    "10: Get information about all orders\n"
-                                   "11: Delete user by login\n"
-                                   "12: Give admin role by login\n"
+                                   "11: Give admin role by login\n"
+                                   //"12: Delete user by login\n"
                                    "0: exit\n";
                 std::cout << text;
                 std::cin >> req;
@@ -116,13 +116,15 @@ int main()
                 {
                     break;
                 }
-                else if (req = 2)
+                else if (req == 2)
                 {
                     // orders sum
                 }
                 else if (req == 3)
                 {
-                    // the most popular comp
+                    std::vector<std::string> result = c.mostPopularCompose();
+                    std::cout << "Information about most popular compose:\n";
+                    std::cout << result[0];
                 }
                 else if (req == 4)
                 {
@@ -139,10 +141,193 @@ int main()
                 else if (req == 7)
                 {
                     // insert
+                    std::string tablename;
+                    while (true)
+                    {
+                        std::cout << "Choose table or type \"!q\" to go back to menu:\n";
+                        std::cin >> tablename;
+                        std::vector<std::string> columns;
+                        std::vector<std::string> PK;
+                        std::vector<std::string> values;
+                        std::string value;
+                        if (c.checkTable(tablename))
+                        {
+                            while (true)
+                            {
+                                values.clear();
+                                columns = c.getColumnsNames(tablename);
+                                PK = c.getPrymaryKeys(tablename);
+                                std::cout << "Columns in that table:\n";
+                                for (int i = 0; i < columns.size(); i++)
+                                {
+                                    std::cout << columns[i] << " ";
+                                }
+                                std::cout << "\nColumns with autoincriment(you cant insert something there):\n";
+                                for (int i = 0; i < PK.size(); i++)
+                                {
+                                    std::cout << PK[i] << " ";
+                                }
+                                std::cout << "\n1:If you want to insert data\n0:If you want to go back\n";
+                                std::cin >> req;
+                                if (req == 1)
+                                {
+                                    for (int i = 0; i < columns.size(); i++)
+                                    {
+                                        if (!c.lookInVector(columns[i], PK))
+                                        {
+                                            std::cout << "Enter value for column " + columns[i] + ":\n";
+                                            std::cin >> value;
+                                            values.push_back(value);
+                                        }
+                                    }
+                                    if (c.insertOperation(tablename, values))
+                                    {
+                                        std::cout << "Success!\n";
+                                    }
+                                    else
+                                    {
+                                        std::cout << "Something went wrong!\n";
+                                    }
+                                }
+                                else if (req == 0)
+                                {
+                                    stop = true;
+                                    break;
+                                }
+                                else
+                                {
+                                    std::cout << "Incorrect number, try again!\n";
+                                }
+                            }
+                            if (stop)
+                            {
+                                stop = false;
+                                break;
+                            }
+                        }
+                        else if (tablename == "!q")
+                        {
+                            stop = true;
+                            break;
+                        }
+                        else
+                        {
+                            std::cout << "No such table! Try again!\n";
+                        }
+                    }
                 }
                 else if (req == 8)
                 {
-                    // update/delete
+                    while (true)
+                    {
+                        std::cout << "1:Update\n2:Delete\n0:Exit\n";
+                        std::cin >> req;
+                        std::string tablename;
+                        if (req == 1 || req == 2)
+                        {
+                            while (true)
+                            {
+                                std::cout << "Choose table or type \"!q\" to go back to menu:\n";
+                                std::cin >> tablename;
+                                std::string column;
+                                std::string data;
+                                if (c.checkTable(tablename))
+                                {
+                                    std::cout << "Table:\n"
+                                              << c.getFullTable(tablename);
+                                    int numOfIterations;
+                                    std::string condition;
+                                    std::cout << "Enter condition like \"*column* = '*data*' or \"!q\" to exit\"\n";
+                                    std::cin.ignore();
+                                    getline(std::cin, condition);
+                                    if (condition == "!q")
+                                    {
+                                        stop = true;
+                                        break;
+                                    }
+                                    if (req == 1)
+                                    {
+                                        std::vector<std::string> values;
+                                        while (true)
+                                        {
+                                            std::cout << "How many columns do you want to change?:\n";
+                                            std::cin >> numOfIterations;
+                                            if (numOfIterations >= 1 && numOfIterations <= c.getNumOfColumns(tablename))
+                                            {
+                                                break;
+                                            }
+                                            else
+                                            {
+                                                std::cout << "Number of columns must be greater then 0 and less then " << c.getNumOfColumns(tablename) + 1 << "! Try again!\n";
+                                            }
+                                        }
+                                        for (int i = 1; i <= numOfIterations; i++)
+                                        {
+                                            while (true)
+                                            {
+                                                std::cout << i << " Value to change:\nColumn:\n";
+                                                std::cin >> column;
+                                                if (c.checkColumn(tablename, column))
+                                                {
+                                                    break;
+                                                }
+                                                else
+                                                {
+                                                    std::cout << "No such column! Try again!\n";
+                                                }
+                                            }
+                                            std::cout << "Data:\n";
+                                            std::cin >> data;
+                                            values.push_back(column + " = '" + data + "'");
+                                        }
+                                        if (c.updateOperation(tablename, values, condition))
+                                        {
+                                            std::cout << "Success!\n";
+                                        }
+                                        else
+                                        {
+                                            std::cout << "Something went wrong!\n";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (c.deleteOperatin(tablename, condition) && c.updateSQLSequence(tablename, "ID"))
+                                        {
+                                            std::cout << "Success!\n";
+                                        }
+                                        else
+                                        {
+                                            std::cout << "Something went wrong!\n";
+                                        }
+                                    }
+                                    stop = true;
+                                    break;
+                                }
+                                else if (tablename == "!q")
+                                {
+                                    stop = true;
+                                    break;
+                                }
+                                else
+                                {
+                                    std::cout << "No such table! Try again!\n";
+                                }
+                            }
+                        }
+                        else if (req == 0)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            std::cout << "Incorrect number, try again!\n";
+                        }
+                        if (stop)
+                        {
+                            stop = false;
+                            break;
+                        }
+                    }
                 }
                 else if (req == 9)
                 {
@@ -154,11 +339,45 @@ int main()
                 }
                 else if (req == 11)
                 {
-                    // delete user
+                    std::cout << "Choose user to give him admin role:\n";
+                    std::cout << c.getFullTable("Customer");
+                    std::string userLogin;
+                    std::cout << "Enter user's login:\n";
+                    std::cin >> userLogin;
+                    if (c.checkLogin(userLogin) && !c.isAdmin(userLogin))
+                    {
+                        c.giveAdmin(userLogin);
+                        std::cout << "Success!\n";
+                    }
+                    else
+                    {
+                        std::cout << "No such user or user is already admin!\n";
+                    }
                 }
                 else if (req == 12)
                 {
-                    // giveAdmin
+                    std::string loginToDelete;
+                    std::cout << c.getFullTable("Customer");
+                    std::cout << "Choose user to delete:\n";
+                    std::cin >> loginToDelete;
+                    if (c.checkLogin(loginToDelete) && loginToDelete != login)
+                    {
+                        if (c.deleteUser(loginToDelete) && c.updateSQLSequence("Customer", "ID"))
+                        {
+                            std::cout << "Success!\n";
+                        }
+                    }
+                    else
+                    {
+                        if (loginToDelete == login)
+                        {
+                            std::cout << "You can't delete yourself!\n";
+                        }
+                        else
+                        {
+                            std::cout << "There is no such user!\n";
+                        }
+                    }
                 }
                 else
                 {
@@ -172,7 +391,6 @@ int main()
                                    "2: Information about orders\n"
                                    "3: Make an order\n"
                                    "4: Get information about your orders\n"
-                                   "5: Delete user\n"
                                    "0: exit\n";
                 std::cout << text;
                 std::cin >> req;
@@ -195,10 +413,6 @@ int main()
                 else if (req == 4)
                 {
                     // info about user's orders
-                }
-                else if (req == 5)
-                {
-                    // Delete user
                 }
                 else
                 {
