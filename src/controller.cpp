@@ -167,3 +167,8 @@ std::vector<std::string> controller::soldCompose()
 {
     return dbModel->getSoldCompose();
 }
+
+std::vector<std::string> controller::ordersByDate(std::string date)
+{
+    return dbModel->getFlowersInfo(date, date);
+}

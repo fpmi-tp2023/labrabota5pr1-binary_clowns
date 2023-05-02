@@ -29,6 +29,7 @@ public:
     std::vector<std::string> urgentOrders();
     std::vector<std::string> flowersInfo(std::string fDate, std::string sDate);
     std::vector<std::string> soldCompose();
+    std::vector<std::string> ordersByDate(std::string date);
 
 private:
     model *dbModel;

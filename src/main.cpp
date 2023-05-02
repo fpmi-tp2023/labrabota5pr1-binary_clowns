@@ -94,7 +94,7 @@ int main()
             {
                 std::string text = "What are you want to do?\n"
                                    "1: Change user \n"
-                                   "2: Information about orders\n"
+                                   "2: Get information about all orders on day\n"
                                    "3: Information about the most popular composition\n"
                                    "4: Information about urgent orders\n"
                                    "5: Information about used flowers\n"
@@ -102,8 +102,7 @@ int main()
                                    "7: Insert information into table\n"
                                    "8: Update/delete information\n"
                                    "9: Change price of a flower\n"
-                                   "10: Get information about all orders\n"
-                                   "11: Give admin role by login\n"
+                                   "10: Give admin role by login\n"
                                    //"12: Delete user by login\n"
                                    "0: exit\n";
                 std::cout << text;
@@ -118,7 +117,14 @@ int main()
                 }
                 else if (req == 2)
                 {
-                    // orders sum
+                    // information about all orders(one day)
+                    std::vector<std::string> result;
+                    std::string date;
+                    std::cout << "Enter date in format yyyy-mm-dd:\n";
+                    std::cin >> date;
+                    result = c.ordersByDate(date);
+                    for (int i = 0; i < result.size(); i++)
+                        std::cout << result[i] << "\n";//new query
                 }
                 else if (req == 3)
                 {
@@ -141,9 +147,9 @@ int main()
                     std::vector<std::string> result;
                     std::string firstDate;
                     std::string secondDate;
-                    std::cout << "Enter first date in format yyyy-dd-mm:\n";
+                    std::cout << "Enter first date in format yyyy-mm-dd:\n";
                     std::cin >> firstDate;
-                    std::cout << "Enter secondDate in format yyyy-dd-mm:\n";
+                    std::cout << "Enter secondDate in format yyyy-mm-dd:\n";
                     std::cin >> secondDate;
                     result = c.flowersInfo(firstDate, secondDate);
                     std::cout << "Information about used flowers:\n";
@@ -355,10 +361,6 @@ int main()
                 }
                 else if (req == 10)
                 {
-                    // information about all orders(one day)
-                }
-                else if (req == 11)
-                {
                     std::cout << "Choose user to give him admin role:\n";
                     std::cout << c.getFullTable("Customer");
                     std::string userLogin;
@@ -374,7 +376,7 @@ int main()
                         std::cout << "No such user or user is already admin!\n";
                     }
                 }
-                /*else if (req == 12)
+                /*else if (req == 11)
                 {
                     std::string loginToDelete;
                     std::cout << c.getFullTable("Customer");

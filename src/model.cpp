@@ -359,9 +359,9 @@ std::vector<std::string> model::getFlowersInfo(std::string fDate, std::string sD
                         "SELECT OrderComp.CompositionID, OrderComp.OrderID, SUM(OrderComp.CompositionAmount) as CompAmount"
                         " FROM ("
                         "SELECT [Order].ID FROM [Order]"
-                        " WHERE [Order].Completion != 'NULL' AND [Order].Completion > '" +
+                        " WHERE [Order].Completion != 'NULL' AND [Order].Completion >= '" +
                         fDate +
-                        "' AND [Order].Completion < '" + sDate + "'"
+                        "' AND [Order].Completion <= '" + sDate + "'"
                                                                  ") A"
                                                                  " INNER JOIN OrderComp ON OrderComp.OrderID == A.ID"
                                                                  " GROUP BY OrderComp.CompositionID"
