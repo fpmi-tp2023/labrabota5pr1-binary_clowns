@@ -103,8 +103,8 @@ int main()
                                    "8: Update/delete information\n"
                                    "9: Change price of a flower\n"
                                    "10: Get information about all orders\n"
-                                   "11: Delete user by login\n"
-                                   "12: Give admin role by login\n"
+                                   "11: Give admin role by login\n"
+                                   //"12: Delete user by login\n"
                                    "0: exit\n";
                 std::cout << text;
                 std::cin >> req;
@@ -337,8 +337,25 @@ int main()
                 }
                 else if (req == 11)
                 {
+                    std::cout << "Choose user to give him admin role:\n";
+                    std::cout << c.getFullTable("Customer");
+                    std::string userLogin;
+                    std::cout << "Enter user's login:\n";
+                    std::cin >> userLogin;
+                    if (c.checkLogin(userLogin) && !c.isAdmin(userLogin))
+                    {
+                        c.giveAdmin(userLogin);
+                        std::cout << "Success!\n";
+                    }
+                    else
+                    {
+                        std::cout << "No such user or user is already admin!\n";
+                    }
+                }
+                else if (req == 12)
+                {
                     std::string loginToDelete;
-                    std::cout<<c.getFullTable("Customer")<<"\n";
+                    std::cout << c.getFullTable("Customer");
                     std::cout << "Choose user to delete:\n";
                     std::cin >> loginToDelete;
                     if (c.checkLogin(loginToDelete) && loginToDelete != login)
@@ -359,24 +376,6 @@ int main()
                             std::cout << "There is no such user!\n";
                         }
                     }
-                    std::cout<<c.getFullTable("sqlite_sequence")<<"\n";
-                }
-                else if (req == 12)
-                {
-                    std::cout << "Choose user to give him admin role:\n";
-                    std::cout << c.getFullTable("Customer");
-                    std::string userLogin;
-                    std::cout << "Enter user's login:\n";
-                    std::cin >> userLogin;
-                    if (c.checkLogin(userLogin) && !c.isAdmin(userLogin))
-                    {
-                        c.giveAdmin(userLogin);
-                        std::cout << "Success!\n";
-                    }
-                    else
-                    {
-                        std::cout << "No such user or user is already admin!\n";
-                    }
                 }
                 else
                 {
@@ -390,7 +389,6 @@ int main()
                                    "2: Information about orders\n"
                                    "3: Make an order\n"
                                    "4: Get information about your orders\n"
-                                   "5: Delete user\n"
                                    "0: exit\n";
                 std::cout << text;
                 std::cin >> req;
@@ -413,10 +411,6 @@ int main()
                 else if (req == 4)
                 {
                     // info about user's orders
-                }
-                else if (req == 5)
-                {
-                    // Delete user
                 }
                 else
                 {
