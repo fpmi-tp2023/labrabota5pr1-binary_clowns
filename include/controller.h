@@ -27,6 +27,7 @@ public:
     bool deleteUser(std::string login);
     bool updateSQLSequence(std::string table, std::string column);
 
+
 private:
     model *dbModel;
 };

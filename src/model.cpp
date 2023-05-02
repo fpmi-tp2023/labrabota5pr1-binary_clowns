@@ -102,12 +102,6 @@ bool model::checkAdmin(std::string login)
     return callback_data;
 }
 
-std::string model::getMostPopularCompose()
-{
-    std::string query; // query for most popular compose
-    return getSingleStringFromDB(query);
-}
-
 int model::getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName)
 {
     std::string &result = *(std::string *)data;
@@ -334,4 +328,10 @@ bool model::updateSQLSequence(std::string table, std::string column)
         delete errMsg;
         return 1;
     }
+}
+
+std::string model::getMostPopularCompose()
+{
+    std::string query; // query for most popular compose
+    return getSingleStringFromDB(query);
 }
