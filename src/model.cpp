@@ -341,3 +341,12 @@ std::vector<std::string> model::getMostPopularCompose()
                         "GROUP BY OrderComp.CompositionID ORDER BY SUM(OrderComp.CompositionAmount) DESC LIMIT 1) ";
     return getTableView(query);
 }
+
+std::vector<std::string> model::getUrgentOrders()
+{
+    std::string query = "SELECT COUNT(ID) AS Amount, CAST(JULIANDAY(Completion) - JULIANDAY(Acceptance) AS INTEGER) as Days"
+                        " FROM [Order]"
+                        " GROUP BY (JULIANDAY(Completion) - JULIANDAY(Acceptance))"
+                        " HAVING Completion != 'NULL';";
+    return getTableView(query);
+}

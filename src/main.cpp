@@ -125,11 +125,15 @@ int main()
                     std::vector<std::string> result = c.mostPopularCompose();
                     std::cout << "Information about most popular compose:\n";
                     for (int i = 0; i < result.size(); i++)
-                        std::cout << result[0]<<"\n";
+                        std::cout << result[i]<<"\n";
                 }
                 else if (req == 4)
                 {
                     // urgent orders
+                    std::vector<std::string> result = c.urgentOrders();
+                    std::cout << "Information about urgent orders compose:\n";
+                    for (int i = 0; i < result.size(); i++)
+                        std::cout << result[i]<<"\n";
                 }
                 else if (req == 5)
                 {

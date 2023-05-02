@@ -26,7 +26,7 @@ public:
     bool deleteUser(std::string login);
     bool updateSQLSequence(std::string table, std::string column);
     std::vector<std::string> mostPopularCompose();
-
+    std::vector<std::string> urgentOrders();
 
 private:
     model *dbModel;

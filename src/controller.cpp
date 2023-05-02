@@ -152,3 +152,8 @@ std::vector<std::string> controller::mostPopularCompose()
 {
     return dbModel->getMostPopularCompose();
 }
+
+std::vector<std::string> controller::urgentOrders()
+{
+    return dbModel->getUrgentOrders();
+}
