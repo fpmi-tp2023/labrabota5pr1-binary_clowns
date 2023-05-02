@@ -124,7 +124,8 @@ int main()
                 {
                     std::vector<std::string> result = c.mostPopularCompose();
                     std::cout << "Information about most popular compose:\n";
-                    std::cout << result[0];
+                    for (int i = 0; i < result.size(); i++)
+                        std::cout << result[0]<<"\n";
                 }
                 else if (req == 4)
                 {
