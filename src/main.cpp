@@ -289,7 +289,7 @@ int main()
                                     }
                                     else
                                     {
-                                        if (c.deleteOperatin(tablename, condition))
+                                        if (c.deleteOperatin(tablename, condition) && c.updateSQLSequence(tablename, "ID"))
                                         {
                                             std::cout << "Success!\n";
                                         }
@@ -338,6 +338,7 @@ int main()
                 else if (req == 11)
                 {
                     std::string loginToDelete;
+                    std::cout<<c.getFullTable("Customer")<<"\n";
                     std::cout << "Choose user to delete:\n";
                     std::cin >> loginToDelete;
                     if (c.checkLogin(loginToDelete) && loginToDelete != login)
@@ -358,6 +359,7 @@ int main()
                             std::cout << "There is no such user!\n";
                         }
                     }
+                    std::cout<<c.getFullTable("sqlite_sequence")<<"\n";
                 }
                 else if (req == 12)
                 {

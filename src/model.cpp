@@ -317,9 +317,8 @@ std::vector<std::string> model::getPrimaryKeys(std::string tableName)
 
 bool model::updateSQLSequence(std::string table, std::string column)
 {
-    std::string query = "UPDATE `sqlite_sequence` "
-                        "SET `seq` = (SELECT MAX(`" +
-                        column + "`) FROM '" + table + "') WHERE `name` = ' " +
+    std::string query = "UPDATE sqlite_sequence SET seq = (SELECT MAX(" +
+                        column + ") FROM " + table + ") WHERE name = '" +
                         table + "';";
     int result;
     char *errMsg;
