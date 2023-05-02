@@ -123,7 +123,7 @@ int main()
                 else if (req == 3)
                 {
                     std::vector<std::string> result = c.mostPopularCompose();
-                    std::cout << "Information about most popular compose:\n";
+                    std::cout << "Information about most popular composition:\n";
                     for (int i = 0; i < result.size(); i++)
                         std::cout << result[i] << "\n";
                 }
@@ -131,7 +131,7 @@ int main()
                 {
                     // urgent orders
                     std::vector<std::string> result = c.urgentOrders();
-                    std::cout << "Information about urgent orders compose:\n";
+                    std::cout << "Information about urgent orders:\n";
                     for (int i = 0; i < result.size(); i++)
                         std::cout << result[i] << "\n";
                 }
@@ -153,6 +153,10 @@ int main()
                 else if (req == 6)
                 {
                     // sold compositions
+                    std::vector<std::string> result = c.soldCompose();
+                    std::cout << "Information about sold compositions:\n";
+                    for (int i = 0; i < result.size(); i++)
+                        std::cout << result[i] << "\n";
                 }
                 else if (req == 7)
                 {

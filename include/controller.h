@@ -28,6 +28,7 @@ public:
     std::vector<std::string> mostPopularCompose();
     std::vector<std::string> urgentOrders();
     std::vector<std::string> flowersInfo(std::string fDate, std::string sDate);
+    std::vector<std::string> soldCompose();
 
 private:
     model *dbModel;
