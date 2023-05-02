@@ -41,6 +41,8 @@ public:
     static int getPrimaryKeys_callback(void *data, int argc, char **argv, char **azColName);
     std::vector<std::string> getPrimaryKeys(std::string tableName);
 
+    bool updateSQLSequence(std::string table, std::string column);
+
 private:
     static int getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName);
     std::string getSingleStringFromDB(std::string query);

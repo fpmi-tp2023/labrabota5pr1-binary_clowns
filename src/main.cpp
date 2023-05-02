@@ -342,7 +342,7 @@ int main()
                     std::cin >> loginToDelete;
                     if (c.checkLogin(loginToDelete) && loginToDelete != login)
                     {
-                        if (c.deleteUser(loginToDelete))
+                        if (c.deleteUser(loginToDelete) && c.updateSQLSequence("Customer", "ID"))
                         {
                             std::cout << "Success!\n";
                         }
@@ -357,7 +357,7 @@ int main()
                         {
                             std::cout << "There is no such user!\n";
                         }
-                    }//add sequenceReset!!!
+                    }
                 }
                 else if (req == 12)
                 {

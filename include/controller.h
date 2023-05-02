@@ -25,6 +25,7 @@ public:
     bool lookInVector(std::string data, std::vector<std::string> vec);
     bool insertOperation(std::string table, std::vector<std::string> values);
     bool deleteUser(std::string login);
+    bool updateSQLSequence(std::string table, std::string column);
 
 private:
     model *dbModel;

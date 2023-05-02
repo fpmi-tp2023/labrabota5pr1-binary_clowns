@@ -290,7 +290,7 @@ std::vector<std::string> model::getColumnsNames(std::string tableName)
 int model::getPrimaryKeys_callback(void *data, int argc, char **argv, char **azColName)
 {
     std::vector<std::string> &vec = *(std::vector<std::string> *)data;
-    char* nullValue = new char [1];
+    char *nullValue = new char[1];
     nullValue[0] = '0';
     if (argv[5][0] != nullValue[0])
     {
@@ -313,4 +313,26 @@ std::vector<std::string> model::getPrimaryKeys(std::string tableName)
         delete errMsg;
     }
     return callback_data;
+}
+
+bool model::updateSQLSequence(std::string table, std::string column)
+{
+    std::string query = "UPDATE `sqlite_sequence` "
+                        "SET `seq` = (SELECT MAX(`" +
+                        column + "`) FROM '" + table + "') WHERE `name` = ' " +
+                        table + "';";
+    int result;
+    char *errMsg;
+    result = sqlite3_exec(db, query.c_str(), NULL, NULL, &errMsg);
+    if (errMsg)
+    {
+        std::cerr << errMsg << "\n";
+        delete errMsg;
+        return 0;
+    }
+    else
+    {
+        delete errMsg;
+        return 1;
+    }
 }
