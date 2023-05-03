@@ -53,6 +53,8 @@ public:
 
     std::string getIdByLogin(std::string login);
 
+    std::vector<std::string> getDayOrdersInfo(std::string date);
+
 private:
     static int getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName);
     std::string getSingleStringFromDB(std::string query);

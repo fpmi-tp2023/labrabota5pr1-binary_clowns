@@ -124,7 +124,7 @@ int main()
                     std::cin >> date;
                     result = c.ordersByDate(date);
                     for (int i = 0; i < result.size(); i++)
-                        std::cout << result[i] << "\n";//new query
+                        std::cout << result[i] << "\n";
                 }
                 else if (req == 3)
                 {

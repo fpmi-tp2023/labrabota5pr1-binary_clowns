@@ -416,5 +416,11 @@ std::vector<std::string> model::getCustomerOrders(std::string fDate, std::string
 
 std::string model::getIdByLogin(std::string login)
 {
-    return getSingleStringFromDB(("SELECT ID FROM Customer WHERE Login = '" + login +"';"));
+    return getSingleStringFromDB(("SELECT ID FROM Customer WHERE Login = '" + login + "';"));
+}
+
+std::vector<std::string> model::getDayOrdersInfo(std::string date)
+{
+    std::string query = "SELECT * FROM 'Order' WHERE Acceptance <= '" + date + "';";
+    return getTableView(query);
 }
