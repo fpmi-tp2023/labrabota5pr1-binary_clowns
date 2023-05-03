@@ -152,3 +152,33 @@ std::vector<std::string> controller::mostPopularCompose()
 {
     return dbModel->getMostPopularCompose();
 }
+
+std::vector<std::string> controller::urgentOrders()
+{
+    return dbModel->getUrgentOrders();
+}
+
+std::vector<std::string> controller::flowersInfo(std::string fDate, std::string sDate)
+{
+    return dbModel->getFlowersInfo(fDate, sDate);
+}
+
+std::vector<std::string> controller::soldCompose()
+{
+    return dbModel->getSoldCompose();
+}
+
+std::vector<std::string> controller::ordersByDate(std::string date)
+{
+    return dbModel->getFlowersInfo(date, date);
+}
+
+std::vector<std::string> controller::customerOrders(std::string fDate, std::string sDate, std::string login)
+{
+    return dbModel->getCustomerOrders(fDate, sDate, getIDByLogin(login));
+}
+
+std::string controller::getIDByLogin(std::string login)
+{
+    return dbModel->getIdByLogin(login);
+}

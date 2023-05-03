@@ -43,6 +43,16 @@ public:
 
     std::vector<std::string> getMostPopularCompose();
 
+    std::vector<std::string> getUrgentOrders();
+
+    std::vector<std::string> getFlowersInfo(std::string fDate, std::string sDate);
+
+    std::vector<std::string> getSoldCompose();
+    
+    std::vector<std::string> getCustomerOrders(std::string fDate, std::string sDate, std::string ID);
+
+    std::string getIdByLogin(std::string login);
+
 private:
     static int getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName);
     std::string getSingleStringFromDB(std::string query);
