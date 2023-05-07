@@ -358,6 +358,29 @@ int main()
                 else if (req == 9)
                 {
                     // Change price
+                    std::vector<std::string> orderCompID;
+                    while (true)
+                    {
+                        std::cout << "1:Add composition to order\n2:Send order\n0:Back to menu\n";
+                        std::cin >> req;
+                        if (req == 1)
+                        {
+                            
+                        }
+                        else if (req == 2)
+                        {
+                            //sending order
+                            break;
+                        }
+                        else if (req == 0)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            std::cout<<"Incorrect number, try again!\n";
+                        }
+                    }
                 }
                 else if (req == 10)
                 {
