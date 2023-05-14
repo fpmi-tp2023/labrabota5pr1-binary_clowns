@@ -191,17 +191,22 @@ std::string controller::getIDByLogin(std::string login)
 bool controller::makeOrder(std::vector<std::pair<int, int>> order, std::string customerID)
 {
     std::vector<std::string>  values;
+    bool isOk = true;
     values.push_back ("DATE()");
     values.push_back("NULL");
     values.push_back (customerID);
     dbModel->insertOperation("Order", values);
-    values.clear();
     std::string id = dbModel->getNumOfRows("Order");
     for (int i = 0; i < order.size(); i++)
     {
         values[0] = id;
         values[1] = std::to_string(order[i].first);
         values[2] = std::to_string(order[i].second);
-        dbModel->insertOperation("OrderComp", )
+        if(dbModel->insertOperation("OrderComp", values)){
+            continue;
+        }else{
+            isOk = false;
+        }
     }
+    return isOk;
 }

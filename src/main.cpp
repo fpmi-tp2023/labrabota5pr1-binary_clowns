@@ -477,11 +477,14 @@ int main()
                         {
                             if (orderCompID.size() > 0)
                             {
-                                
+                                if (c.makeOrder(orderCompID, c.getIDByLogin(login)))
+                                {
+                                    std::cout << "Success!\n";
+                                }
                             }
                             else
                             {
-                                std::cout<<"Order is empty!\n";
+                                std::cout << "Order is empty!\n";
                             }
                             break;
                         }
