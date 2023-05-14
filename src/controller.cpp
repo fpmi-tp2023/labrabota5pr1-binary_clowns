@@ -219,20 +219,34 @@ bool controller::checkComposeId(std::string data)
     return dbModel->lookForData("FlowerComp", "ID", data);
 }
 
-bool controller::checkCostChanges(int flowerID, int newCost)
+bool controller::checkCostChanges(int flowerID, double newCost)
 {
-    int oldCost = stoi(dbModel->getFlowerCost(std::to_string(flowerID)));
+    double oldCost = stod(dbModel->getFlowerCost(std::to_string(flowerID)));
     std::vector<double> oldCosts;
     for (int i = 0; i < stoi(dbModel->getMaxId("FlowerComp")); i++)
     {
         if (checkComposeId(std::to_string(i)))
         {
-            oldCosts.push_back(stod(dbModel->getFlowerCost(std::to_string(i))));
+            oldCosts.push_back(stod(dbModel->getComposeCost(std::to_string(i))));
         }
         else
         {
             oldCosts.push_back(0);
         }
     }
-    
+    dbModel->updateOperation("Flower", ("Price = '" + std::to_string(newCost) + "'"), ("ID = '" + std::to_string(flowerID) + "'"));
+
+    for (int i = 0; i < stoi(dbModel->getMaxId("FlowerComp")); i++)
+    {
+        if (checkComposeId(std::to_string(i)))
+        {
+            double newCompCost = stod(dbModel->getComposeCost(std::to_string(i)));
+            if (oldCosts[i] - newCompCost > oldCosts[i] * 0.01)
+            {
+                dbModel->updateOperation("Flower", ("Price = '" + std::to_string(oldCost) + "'"), ("ID = '" + std::to_string(flowerID) + "'"));
+                return false;
+            }
+        }
+    }
+    return true;
 }

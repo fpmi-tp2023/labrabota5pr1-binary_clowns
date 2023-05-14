@@ -357,7 +357,36 @@ int main()
                 }
                 else if (req == 9)
                 {
-                    // Change price
+                    while (true)
+                    {
+                        double cost;
+                        int flowerId;
+                        std::cout << "Choose a flower:\n"
+                                  << c.getFullTable("Flower");
+                        std::cin >> flowerId;
+                        if (flowerId > 0 && flowerId <= c.getNumOfRows("Flower"))
+                        {
+                            std::cout << "Enter new price:\n";
+                            std::cin >> cost;
+                            if (cost > 0)
+                            {
+                                if (c.checkCostChanges(flowerId, cost))
+                                {
+                                    std::cout << "Success!\n";
+                                }
+                                else
+                                {
+                                    std::cout<<"You can't do it!\n";
+                                }
+                            }else{
+                                std::cout<<"Price must be greater than 0\n";
+                            }
+                        }
+                        else
+                        {
+                            std::cout << "No such flower!\n";
+                        }
+                    }
                 }
                 else if (req == 10)
                 {

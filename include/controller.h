@@ -35,7 +35,7 @@ public:
     std::string getIDByLogin(std::string login);
     bool makeOrder(std::vector<std::pair<int,int>> order, std::string customerID);
     bool checkComposeId(std::string data);
-    bool checkCostChanges(int flowerID, int newCost);
+    bool checkCostChanges(int flowerID, double newCost);
 
 private:
     model *dbModel;
