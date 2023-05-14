@@ -441,15 +441,17 @@ int main()
                 else if (req == 3)
                 {
                     // make order
-                    std::vector<std::string> orderCompID;
+                    std::vector<std::pair<int, int>> orderCompID;
                     while (true)
                     {
+                        int compID;
                         std::cout << "1:Add composition to order\n2:Send order\n0:Back to menu\n";
                         std::cin >> req;
                         if (req == 1)
                         {
                             std::cout<<"Choose id of composition to add into order:\n";
                             std::cout<<c.getFullTable("Composition");
+                            std::cin>>compID;
                             
                         }
                         else if (req == 2)

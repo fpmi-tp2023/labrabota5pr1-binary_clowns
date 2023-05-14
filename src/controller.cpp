@@ -93,6 +93,11 @@ int controller::getNumOfColumns(std::string tableName)
     return stoi(dbModel->getNumOfColumns(tableName));
 }
 
+int controller::getNumOfRows(std::string tableName)
+{
+    return stoi(dbModel->getNumOfRows(tableName));
+}
+
 bool controller::deleteOperatin(std::string table, std::string conditions)
 {
     return dbModel->deleteOperation(table, conditions);

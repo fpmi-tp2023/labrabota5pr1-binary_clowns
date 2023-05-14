@@ -424,3 +424,8 @@ std::vector<std::string> model::getDayOrdersInfo(std::string date)
     std::string query = "SELECT * FROM 'Order' WHERE Acceptance <= '" + date + "';";
     return getTableView(query);
 }
+
+std::string model::getNumOfRows(std::string table)
+{
+    return getSingleStringFromDB(("SELECT COUNT(*) FROM " + table));
+}

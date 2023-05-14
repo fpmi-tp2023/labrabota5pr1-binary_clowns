@@ -55,7 +55,7 @@ public:
 
     std::vector<std::string> getDayOrdersInfo(std::string date);
 
-    
+    std::string getNumOfRows(std::string table);
 
 private:
     static int getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName);
