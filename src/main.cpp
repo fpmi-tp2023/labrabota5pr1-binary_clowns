@@ -358,7 +358,6 @@ int main()
                 else if (req == 9)
                 {
                     // Change price
-                    
                 }
                 else if (req == 10)
                 {
@@ -444,19 +443,46 @@ int main()
                     std::vector<std::pair<int, int>> orderCompID;
                     while (true)
                     {
-                        int compID;
                         std::cout << "1:Add composition to order\n2:Send order\n0:Back to menu\n";
                         std::cin >> req;
                         if (req == 1)
                         {
-                            std::cout<<"Choose id of composition to add into order:\n";
-                            std::cout<<c.getFullTable("Composition");
-                            std::cin>>compID;
-                            
+                            int compID;
+                            bool isInOrder = false;
+                            std::cout << "Choose id of composition to add into order:\n";
+                            std::cout << c.getFullTable("Composition");
+                            std::cin >> compID;
+                            if (compID <= c.getNumOfRows("Flowercomp"))
+                            {
+                                for (int i = 0; i < orderCompID.size(); i++)
+                                {
+                                    if (orderCompID[i].first == compID)
+                                    {
+                                        isInOrder = true;
+                                        orderCompID[i].second++;
+                                        break;
+                                    }
+                                }
+                                if (!isInOrder)
+                                {
+                                    orderCompID.push_back(std::make_pair(compID, 1));
+                                }
+                            }
+                            else
+                            {
+                                std::cout << "No such ID\n";
+                            }
                         }
                         else if (req == 2)
                         {
-                            //sending order
+                            if (orderCompID.size() > 0)
+                            {
+                                
+                            }
+                            else
+                            {
+                                std::cout<<"Order is empty!\n";
+                            }
                             break;
                         }
                         else if (req == 0)
@@ -465,7 +491,7 @@ int main()
                         }
                         else
                         {
-                            std::cout<<"Incorrect number, try again!\n";
+                            std::cout << "Incorrect number, try again!\n";
                         }
                     }
                 }
