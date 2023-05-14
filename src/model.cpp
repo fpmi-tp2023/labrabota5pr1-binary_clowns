@@ -67,22 +67,32 @@ bool model::insertOperation(std::string table, std::vector<std::string> values, 
 {
     int result;
     char *errMsg;
-    std::string query = "INSERT INTO " + table + " (";
+    std::string query = "INSERT INTO '" + table + "' (";
     for (int i = 0; i < (columns.size() - 1); i++)
     {
         query += columns[i] + ", ";
     }
-    query += columns[(columns.size() - 1)] + ")";    
-    query+= " VALUES ('";
+    query += columns[(columns.size() - 1)] + ")";
+    query += " VALUES ('";
     for (int i = 0; i < (values.size() - 1); i++)
     {
         query += values[i] + "', '";
     }
     query += values[(values.size() - 1)] + "');";
-    if (db == nullptr)
+    result = sqlite3_exec(db, query.c_str(), NULL, NULL, &errMsg);
+    if (errMsg)
     {
+        std::cerr << "SQL error: " << errMsg << "\n";
         return 0;
     }
+    return 1;
+}
+
+bool model::makeOrder(std::vector<std::string> values)
+{
+    int result;
+    char *errMsg;
+    std::string query = "INSERT INTO 'Order' (Acceptance, Completion, CustomerID) VALUES (" + values[0] + ", '" + values[1] + "', '" + values[2] + "');";
     result = sqlite3_exec(db, query.c_str(), NULL, NULL, &errMsg);
     if (errMsg)
     {

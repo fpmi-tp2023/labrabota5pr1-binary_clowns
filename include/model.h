@@ -17,6 +17,8 @@ public:
 
     bool insertOperation(std::string table, std::vector<std::string> values, std::vector<std::string> columns);
 
+    bool makeOrder(std::vector<std::string> values);
+
     bool checkAdmin(std::string login);
 
     std::vector<std::string> getTableInfo(std::string table, std::string conditions);

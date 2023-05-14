@@ -204,13 +204,16 @@ bool controller::makeOrder(std::vector<std::pair<int, int>> order, std::string c
     columns.push_back("Acceptance");
     columns.push_back("Completion");
     columns.push_back("CustomerID");
-    dbModel->insertOperation("Order", values, columns);
+    dbModel->makeOrder(values);
+    columns[0] = "CompositionAmount";
+    columns[1] = "CompositionID";
+    columns[2] = "OrderID";
     std::string id = dbModel->getNumOfRows("Order");
     for (int i = 0; i < order.size(); i++)
     {
-        values[0] = id;
+        values[0] = std::to_string(order[i].second);
         values[1] = std::to_string(order[i].first);
-        values[2] = std::to_string(order[i].second);
+        values[2] = id;
         if (dbModel->insertOperation("OrderComp", values, columns))
         {
             continue;
