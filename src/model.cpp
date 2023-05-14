@@ -429,3 +429,8 @@ std::string model::getNumOfRows(std::string table)
 {
     return getSingleStringFromDB(("SELECT COUNT(*) FROM " + table));
 }
+
+std::string model::getMaxId(std::string table)
+{
+    return getSingleStringFromDB(("SELECT MAX(ID) FROM " + table));
+}

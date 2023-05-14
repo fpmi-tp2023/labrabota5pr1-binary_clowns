@@ -452,7 +452,7 @@ int main()
                             std::cout << "Choose id of composition to add into order:\n";
                             std::cout << c.getFullTable("Composition");
                             std::cin >> compID;
-                            if (compID <= c.getNumOfRows("Flowercomp"))
+                            if (c.checkComposeId(std::to_string(compID)))
                             {
                                 for (int i = 0; i < orderCompID.size(); i++)
                                 {

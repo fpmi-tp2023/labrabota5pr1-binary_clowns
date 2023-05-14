@@ -190,11 +190,11 @@ std::string controller::getIDByLogin(std::string login)
 
 bool controller::makeOrder(std::vector<std::pair<int, int>> order, std::string customerID)
 {
-    std::vector<std::string>  values;
+    std::vector<std::string> values;
     bool isOk = true;
-    values.push_back ("DATE()");
+    values.push_back("DATE()");
     values.push_back("NULL");
-    values.push_back (customerID);
+    values.push_back(customerID);
     dbModel->insertOperation("Order", values);
     std::string id = dbModel->getNumOfRows("Order");
     for (int i = 0; i < order.size(); i++)
@@ -202,11 +202,24 @@ bool controller::makeOrder(std::vector<std::pair<int, int>> order, std::string c
         values[0] = id;
         values[1] = std::to_string(order[i].first);
         values[2] = std::to_string(order[i].second);
-        if(dbModel->insertOperation("OrderComp", values)){
+        if (dbModel->insertOperation("OrderComp", values))
+        {
             continue;
-        }else{
+        }
+        else
+        {
             isOk = false;
         }
     }
     return isOk;
+}
+
+bool controller::checkComposeId(std::string data)
+{
+    return dbModel->lookForData("FlowerComp", "ID", data);
+}
+
+bool controller::checkCostChanges(int flowerID, int newCost)
+{
+    
 }

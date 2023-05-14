@@ -57,6 +57,8 @@ public:
 
     std::string getNumOfRows(std::string table);
 
+    std::string getMaxId(std::string table);
+
 private:
     static int getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName);
     std::string getSingleStringFromDB(std::string query);
