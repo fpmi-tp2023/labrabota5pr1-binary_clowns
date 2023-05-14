@@ -63,21 +63,36 @@ std::string model::getCustomerPassword(std::string login)
     return getSingleStringFromDB(query);
 }
 
-bool model::insertOperation(std::string table, std::vector<std::string> values)
+bool model::insertOperation(std::string table, std::vector<std::string> values, std::vector<std::string> columns)
 {
     int result;
     char *errMsg;
-    std::string query = "INSERT INTO  " + table + " (Login, Password, Admin)\n"
-                                                  "VALUES ('";
+    std::string query = "INSERT INTO '" + table + "' (";
+    for (int i = 0; i < (columns.size() - 1); i++)
+    {
+        query += columns[i] + ", ";
+    }
+    query += columns[(columns.size() - 1)] + ")";
+    query += " VALUES ('";
     for (int i = 0; i < (values.size() - 1); i++)
     {
         query += values[i] + "', '";
     }
-    query += values[(values.size() - 1)] + "' );";
-    if (db == nullptr)
+    query += values[(values.size() - 1)] + "');";
+    result = sqlite3_exec(db, query.c_str(), NULL, NULL, &errMsg);
+    if (errMsg)
     {
+        std::cerr << "SQL error: " << errMsg << "\n";
         return 0;
     }
+    return 1;
+}
+
+bool model::makeOrder(std::vector<std::string> values)
+{
+    int result;
+    char *errMsg;
+    std::string query = "INSERT INTO 'Order' (Acceptance, Completion, CustomerID) VALUES (" + values[0] + ", '" + values[1] + "', '" + values[2] + "');";
     result = sqlite3_exec(db, query.c_str(), NULL, NULL, &errMsg);
     if (errMsg)
     {
@@ -416,5 +431,35 @@ std::vector<std::string> model::getCustomerOrders(std::string fDate, std::string
 
 std::string model::getIdByLogin(std::string login)
 {
-    return getSingleStringFromDB(("SELECT ID FROM Customer WHERE Login = '" + login +"';"));
+    return getSingleStringFromDB(("SELECT ID FROM Customer WHERE Login = '" + login + "';"));
+}
+
+std::vector<std::string> model::getDayOrdersInfo(std::string date)
+{
+    std::string query = "SELECT * FROM 'Order' WHERE Acceptance <= '" + date + "';";
+    return getTableView(query);
+}
+
+std::string model::getNumOfRows(std::string table)
+{
+    return getSingleStringFromDB(("SELECT COUNT(*) FROM '" + table + "'"));
+}
+
+std::string model::getMaxId(std::string table)
+{
+    return getSingleStringFromDB(("SELECT MAX(ID) FROM '" + table + "'"));
+}
+
+std::string model::getFlowerCost(std::string Id)
+{
+    return getSingleStringFromDB("SELECT Price FROM Flower WHERE ID = " + Id);
+}
+
+std::string model::getComposeCost(std::string Id)
+{
+    std::string query = "SELECT SUM(FlowersAmount*Price) as CompPrice FROM FlowerComp"
+                        " INNER JOIN Composition ON CompositionID = Composition.ID  AND Composition.ID == " +
+                        Id +
+                        " INNER JOIN Flower ON FlowerComp.FlowerID = Flower.ID";
+    return getSingleStringFromDB(query);
 }

@@ -15,7 +15,9 @@ public:
 
     std::string getCustomerPassword(std::string login);
 
-    bool insertOperation(std::string table, std::vector<std::string> values);
+    bool insertOperation(std::string table, std::vector<std::string> values, std::vector<std::string> columns);
+
+    bool makeOrder(std::vector<std::string> values);
 
     bool checkAdmin(std::string login);
 
@@ -52,6 +54,16 @@ public:
     std::vector<std::string> getCustomerOrders(std::string fDate, std::string sDate, std::string ID);
 
     std::string getIdByLogin(std::string login);
+
+    std::vector<std::string> getDayOrdersInfo(std::string date);
+
+    std::string getNumOfRows(std::string table);
+
+    std::string getMaxId(std::string table);
+
+    std::string getFlowerCost(std::string Id);
+
+    std::string getComposeCost(std::string Id);
 
 private:
     static int getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName);

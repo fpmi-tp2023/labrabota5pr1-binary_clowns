@@ -124,7 +124,7 @@ int main()
                     std::cin >> date;
                     result = c.ordersByDate(date);
                     for (int i = 0; i < result.size(); i++)
-                        std::cout << result[i] << "\n";//new query
+                        std::cout << result[i] << "\n";
                 }
                 else if (req == 3)
                 {
@@ -176,11 +176,13 @@ int main()
                         std::vector<std::string> PK;
                         std::vector<std::string> values;
                         std::string value;
+                        std::vector<std::string> columnsForInsert;
                         if (c.checkTable(tablename))
                         {
                             while (true)
                             {
                                 values.clear();
+                                columnsForInsert.clear();
                                 columns = c.getColumnsNames(tablename);
                                 PK = c.getPrymaryKeys(tablename);
                                 std::cout << "Columns in that table:\n";
@@ -204,9 +206,10 @@ int main()
                                             std::cout << "Enter value for column " + columns[i] + ":\n";
                                             std::cin >> value;
                                             values.push_back(value);
+                                            columnsForInsert.push_back(columns[i]);
                                         }
                                     }
-                                    if (c.insertOperation(tablename, values))
+                                    if (c.insertOperation(tablename, values, columnsForInsert))
                                     {
                                         std::cout << "Success!\n";
                                     }
@@ -357,7 +360,40 @@ int main()
                 }
                 else if (req == 9)
                 {
-                    // Change price
+                    while (true)
+                    {
+                        double cost =1000;
+                        int flowerId;
+                        std::cout << "Choose a flower:\n"
+                                  << c.getFullTable("Flower");
+                        std::cin >> flowerId;
+                        if (flowerId > 0 && flowerId <= c.getNumOfRows("Flower"))
+                        {
+                            std::cout << "Enter new price:\n";
+                            std::cin >> cost;
+                            if (cost > 0)
+                            {
+                                if (c.checkCostChanges(flowerId, cost))
+                                {
+                                    std::cout << "Success!\n";
+                                    break;
+                                }
+                                else
+                                {
+                                    std::cout << "You can't do it!\n";
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                std::cout << "Price must be greater than 0\n";
+                            }
+                        }
+                        else
+                        {
+                            std::cout << "No such flower!\n";
+                        }
+                    }
                 }
                 else if (req == 10)
                 {
@@ -423,7 +459,7 @@ int main()
                 {
                     break;
                 }
-                else if (req = 2)
+                else if (req == 2)
                 {
                     std::vector<std::string> result;
                     std::string firstDate;
@@ -440,6 +476,63 @@ int main()
                 else if (req == 3)
                 {
                     // make order
+                    std::vector<std::pair<int, int>> orderCompID;
+                    while (true)
+                    {
+                        std::cout << "1:Add composition to order\n2:Send order\n0:Back to menu\n";
+                        std::cin >> req;
+                        if (req == 1)
+                        {
+                            int compID;
+                            bool isInOrder = false;
+                            std::cout << "Choose id of composition to add into order:\n";
+                            std::cout << c.getFullTable("Composition");
+                            std::cin >> compID;
+                            if (c.checkComposeId(std::to_string(compID)))
+                            {
+                                for (int i = 0; i < orderCompID.size(); i++)
+                                {
+                                    if (orderCompID[i].first == compID)
+                                    {
+                                        isInOrder = true;
+                                        orderCompID[i].second++;
+                                        break;
+                                    }
+                                }
+                                if (!isInOrder)
+                                {
+                                    orderCompID.push_back(std::make_pair(compID, 1));
+                                }
+                            }
+                            else
+                            {
+                                std::cout << "No such ID\n";
+                            }
+                        }
+                        else if (req == 2)
+                        {
+                            if (orderCompID.size() > 0)
+                            {
+                                if (c.makeOrder(orderCompID, c.getIDByLogin(login)))
+                                {
+                                    std::cout << "Success!\n";
+                                }
+                            }
+                            else
+                            {
+                                std::cout << "Order is empty!\n";
+                            }
+                            break;
+                        }
+                        else if (req == 0)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            std::cout << "Incorrect number, try again!\n";
+                        }
+                    }
                 }
                 else
                 {
