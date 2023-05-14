@@ -362,7 +362,7 @@ int main()
                 {
                     while (true)
                     {
-                        double cost;
+                        double cost =1000;
                         int flowerId;
                         std::cout << "Choose a flower:\n"
                                   << c.getFullTable("Flower");

@@ -3,6 +3,7 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <math.h>
 #include <openssl/md5.h>
 
 controller::controller(char *dbName)
@@ -224,18 +225,18 @@ bool controller::makeOrder(std::vector<std::pair<int, int>> order, std::string c
 
 bool controller::checkComposeId(std::string data)
 {
-    return dbModel->lookForData("FlowerComp", "ID", data);
+    return dbModel->lookForData("Composition", "ID", data);
 }
 
 bool controller::checkCostChanges(int flowerID, double newCost)
 {
-    double oldCost = stod(dbModel->getFlowerCost(std::to_string(flowerID)));
+    double oldCost = std::stod(dbModel->getFlowerCost(std::to_string(flowerID)));
     std::vector<double> oldCosts;
-    for (int i = 1; i <= stoi(dbModel->getMaxId("FlowerComp")); i++)
+    for (int i = 0; i <= stoi(dbModel->getMaxId("Composition")); i++)
     {
         if (checkComposeId(std::to_string(i)))
         {
-            oldCosts.push_back(stod(dbModel->getComposeCost(std::to_string(i))));
+            oldCosts.push_back(std::stod(dbModel->getComposeCost(std::to_string(i))));
         }
         else
         {
@@ -243,13 +244,12 @@ bool controller::checkCostChanges(int flowerID, double newCost)
         }
     }
     dbModel->updateOperation("Flower", ("Price = '" + std::to_string(newCost) + "'"), ("ID = '" + std::to_string(flowerID) + "'"));
-
-    for (int i = 1; i <= stoi(dbModel->getMaxId("FlowerComp")); i++)
+    for (int i = 0; i <= stoi(dbModel->getMaxId("Composition")); i++)
     {
         if (checkComposeId(std::to_string(i)))
         {
-            double newCompCost = stod(dbModel->getComposeCost(std::to_string(i)));
-            if (oldCosts[i] - newCompCost > oldCosts[i] * 0.01)
+            double newCompCost = std::stod(dbModel->getComposeCost(std::to_string(i)));
+            if (abs(oldCosts[i] - newCompCost) > oldCosts[i] * 0.1)
             {
                 dbModel->updateOperation("Flower", ("Price = '" + std::to_string(oldCost) + "'"), ("ID = '" + std::to_string(flowerID) + "'"));
                 return false;
