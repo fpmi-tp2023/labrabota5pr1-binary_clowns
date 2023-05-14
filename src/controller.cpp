@@ -221,5 +221,18 @@ bool controller::checkComposeId(std::string data)
 
 bool controller::checkCostChanges(int flowerID, int newCost)
 {
+    int oldCost = stoi(dbModel->getFlowerCost(std::to_string(flowerID)));
+    std::vector<double> oldCosts;
+    for (int i = 0; i < stoi(dbModel->getMaxId("FlowerComp")); i++)
+    {
+        if (checkComposeId(std::to_string(i)))
+        {
+            oldCosts.push_back(stod(dbModel->getFlowerCost(std::to_string(i))));
+        }
+        else
+        {
+            oldCosts.push_back(0);
+        }
+    }
     
 }

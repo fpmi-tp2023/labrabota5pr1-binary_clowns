@@ -434,3 +434,17 @@ std::string model::getMaxId(std::string table)
 {
     return getSingleStringFromDB(("SELECT MAX(ID) FROM " + table));
 }
+
+std::string model::getFlowerCost(std::string Id)
+{
+    return getSingleStringFromDB("SELECT Price from Flower WHERE ID = " + Id);
+}
+
+std::string model::getComposeCost(std::string Id)
+{
+    std::string query = "SELECT SUM(FlowersAmount*Price) as CompPrice FROM FlowerComp"
+                        " INNER JOIN Composition ON CompositionID = Composition.ID  AND Composition.ID == " +
+                        Id +
+                        " INNER JOIN Flower ON FlowerComp.FlowerID = Flower.ID";
+    return getSingleStringFromDB(query);
+}

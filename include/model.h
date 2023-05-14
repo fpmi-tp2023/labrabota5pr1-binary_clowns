@@ -59,6 +59,10 @@ public:
 
     std::string getMaxId(std::string table);
 
+    std::string getFlowerCost(std::string Id);
+
+    std::string getComposeCost(std::string Id);
+
 private:
     static int getSingleStringFromBD_callback(void *data, int argc, char **argv, char **azColName);
     std::string getSingleStringFromDB(std::string query);
