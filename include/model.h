@@ -15,7 +15,7 @@ public:
 
     std::string getCustomerPassword(std::string login);
 
-    bool insertOperation(std::string table, std::vector<std::string> values);
+    bool insertOperation(std::string table, std::vector<std::string> values, std::vector<std::string> columns);
 
     bool checkAdmin(std::string login);
 

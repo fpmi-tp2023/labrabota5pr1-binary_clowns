@@ -28,7 +28,11 @@ bool controller::createUser(std::string login, std::string password)
     values.push_back(login);
     values.push_back(md5(password));
     values.push_back("0");
-    if (dbModel->insertOperation("Customer", values))
+    std::vector<std::string> columns;
+    columns.push_back("Login");
+    columns.push_back("Password");
+    columns.push_back("Admin");
+    if (dbModel->insertOperation("Customer", values, columns))
     {
         return 1;
     }
@@ -138,9 +142,9 @@ bool controller::lookInVector(std::string data, std::vector<std::string> vec)
     return result;
 }
 
-bool controller::insertOperation(std::string table, std::vector<std::string> values)
+bool controller::insertOperation(std::string table, std::vector<std::string> values, std::vector<std::string> columns)
 {
-    return dbModel->insertOperation(table, values);
+    return dbModel->insertOperation(table, values, columns);
 }
 
 bool controller::deleteUser(std::string login)
@@ -191,18 +195,22 @@ std::string controller::getIDByLogin(std::string login)
 bool controller::makeOrder(std::vector<std::pair<int, int>> order, std::string customerID)
 {
     std::vector<std::string> values;
+    std::vector<std::string> columns;
     bool isOk = true;
     values.push_back("DATE()");
     values.push_back("NULL");
     values.push_back(customerID);
-    dbModel->insertOperation("Order", values);
+    columns.push_back("Acceptance");
+    columns.push_back("Completion");
+    columns.push_back("CustomerID");
+    dbModel->insertOperation("Order", values, columns);
     std::string id = dbModel->getNumOfRows("Order");
     for (int i = 0; i < order.size(); i++)
     {
         values[0] = id;
         values[1] = std::to_string(order[i].first);
         values[2] = std::to_string(order[i].second);
-        if (dbModel->insertOperation("OrderComp", values))
+        if (dbModel->insertOperation("OrderComp", values, columns))
         {
             continue;
         }
@@ -223,7 +231,7 @@ bool controller::checkCostChanges(int flowerID, double newCost)
 {
     double oldCost = stod(dbModel->getFlowerCost(std::to_string(flowerID)));
     std::vector<double> oldCosts;
-    for (int i = 0; i < stoi(dbModel->getMaxId("FlowerComp")); i++)
+    for (int i = 1; i <= stoi(dbModel->getMaxId("FlowerComp")); i++)
     {
         if (checkComposeId(std::to_string(i)))
         {
@@ -236,7 +244,7 @@ bool controller::checkCostChanges(int flowerID, double newCost)
     }
     dbModel->updateOperation("Flower", ("Price = '" + std::to_string(newCost) + "'"), ("ID = '" + std::to_string(flowerID) + "'"));
 
-    for (int i = 0; i < stoi(dbModel->getMaxId("FlowerComp")); i++)
+    for (int i = 1; i <= stoi(dbModel->getMaxId("FlowerComp")); i++)
     {
         if (checkComposeId(std::to_string(i)))
         {

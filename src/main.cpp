@@ -176,11 +176,13 @@ int main()
                         std::vector<std::string> PK;
                         std::vector<std::string> values;
                         std::string value;
+                        std::vector<std::string> columnsForInsert;
                         if (c.checkTable(tablename))
                         {
                             while (true)
                             {
                                 values.clear();
+                                columnsForInsert.clear();
                                 columns = c.getColumnsNames(tablename);
                                 PK = c.getPrymaryKeys(tablename);
                                 std::cout << "Columns in that table:\n";
@@ -204,9 +206,10 @@ int main()
                                             std::cout << "Enter value for column " + columns[i] + ":\n";
                                             std::cin >> value;
                                             values.push_back(value);
+                                            columnsForInsert.push_back(columns[i]);
                                         }
                                     }
-                                    if (c.insertOperation(tablename, values))
+                                    if (c.insertOperation(tablename, values, columnsForInsert))
                                     {
                                         std::cout << "Success!\n";
                                     }
@@ -373,13 +376,17 @@ int main()
                                 if (c.checkCostChanges(flowerId, cost))
                                 {
                                     std::cout << "Success!\n";
+                                    break;
                                 }
                                 else
                                 {
-                                    std::cout<<"You can't do it!\n";
+                                    std::cout << "You can't do it!\n";
+                                    break;
                                 }
-                            }else{
-                                std::cout<<"Price must be greater than 0\n";
+                            }
+                            else
+                            {
+                                std::cout << "Price must be greater than 0\n";
                             }
                         }
                         else
@@ -452,7 +459,7 @@ int main()
                 {
                     break;
                 }
-                else if (req = 2)
+                else if (req == 2)
                 {
                     std::vector<std::string> result;
                     std::string firstDate;

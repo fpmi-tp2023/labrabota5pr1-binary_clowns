@@ -23,7 +23,7 @@ public:
     std::vector<std::string> getColumnsNames(std::string tableName);
     std::vector<std::string> getPrymaryKeys(std::string tableName);
     bool lookInVector(std::string data, std::vector<std::string> vec);
-    bool insertOperation(std::string table, std::vector<std::string> values);
+    bool insertOperation(std::string table, std::vector<std::string> values, std::vector<std::string> columns);
     bool deleteUser(std::string login);
     bool updateSQLSequence(std::string table, std::string column);
     std::vector<std::string> mostPopularCompose();

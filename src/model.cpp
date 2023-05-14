@@ -63,17 +63,22 @@ std::string model::getCustomerPassword(std::string login)
     return getSingleStringFromDB(query);
 }
 
-bool model::insertOperation(std::string table, std::vector<std::string> values)
+bool model::insertOperation(std::string table, std::vector<std::string> values, std::vector<std::string> columns)
 {
     int result;
     char *errMsg;
-    std::string query = "INSERT INTO  " + table + " (Login, Password, Admin)\n"
-                                                  "VALUES ('";
+    std::string query = "INSERT INTO " + table + " (";
+    for (int i = 0; i < (columns.size() - 1); i++)
+    {
+        query += columns[i] + ", ";
+    }
+    query += columns[(columns.size() - 1)] + ")";    
+    query+= " VALUES ('";
     for (int i = 0; i < (values.size() - 1); i++)
     {
         query += values[i] + "', '";
     }
-    query += values[(values.size() - 1)] + "' );";
+    query += values[(values.size() - 1)] + "');";
     if (db == nullptr)
     {
         return 0;
@@ -427,17 +432,17 @@ std::vector<std::string> model::getDayOrdersInfo(std::string date)
 
 std::string model::getNumOfRows(std::string table)
 {
-    return getSingleStringFromDB(("SELECT COUNT(*) FROM " + table));
+    return getSingleStringFromDB(("SELECT COUNT(*) FROM '" + table + "'"));
 }
 
 std::string model::getMaxId(std::string table)
 {
-    return getSingleStringFromDB(("SELECT MAX(ID) FROM " + table));
+    return getSingleStringFromDB(("SELECT MAX(ID) FROM '" + table + "'"));
 }
 
 std::string model::getFlowerCost(std::string Id)
 {
-    return getSingleStringFromDB("SELECT Price from Flower WHERE ID = " + Id);
+    return getSingleStringFromDB("SELECT Price FROM Flower WHERE ID = " + Id);
 }
 
 std::string model::getComposeCost(std::string Id)
