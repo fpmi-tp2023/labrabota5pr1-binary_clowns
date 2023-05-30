@@ -1,1 +1,1 @@
-![Presentation.jpg](page_indo/db_info/Presentation.jpg)
+![Presentation.png](page_indo/db_info/Presentation.png)
