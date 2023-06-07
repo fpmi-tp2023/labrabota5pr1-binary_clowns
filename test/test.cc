@@ -57,9 +57,9 @@ TEST(getFullTableTest, TestPositive)
 {
     controller c("greenhouse.db");
     EXPECT_EQ(c.getFullTable("Customer"), "ID : 0\nLogin : admin\nPassword : 21232f297a57a5a743894a0e4a801fc3\nAdmin : 1\n\n"
-                                         "ID : 1\nLogin : Vantuzz\nPassword : 81dc9bdb52d04dc20036dbd8313ed055\nAdmin : 0\n\n"
-                                         "ID : 2\nLogin : abc\nPassword : 900150983cd24fb0d6963f7d28e17f72\nAdmin : 0\n\n"
-                                         "ID : 3\nLogin : nikita\nPassword : 81dc9bdb52d04dc20036dbd8313ed055\nAdmin : 0\n\n");
+                                          "ID : 1\nLogin : Vantuzz\nPassword : 81dc9bdb52d04dc20036dbd8313ed055\nAdmin : 0\n\n"
+                                          "ID : 2\nLogin : abc\nPassword : 900150983cd24fb0d6963f7d28e17f72\nAdmin : 0\n\n"
+                                          "ID : 3\nLogin : nikita\nPassword : 81dc9bdb52d04dc20036dbd8313ed055\nAdmin : 0\n\n");
 }
 
 TEST(checkTableTest, TestWhole)
@@ -86,4 +86,12 @@ TEST(getNumOfRowsTest, TestWhole)
 {
     controller c("greenhouse.db");
     EXPECT_EQ(c.getNumOfRows("Flower"), 25);
+}
+
+TEST(updateOperationTest, TestWhole)
+{
+    controller c("greenhouse.db");
+    std::vector<std::string> setColumns;
+    setColumns.push_back("Admin = '1'");
+    EXPECT_TRUE(c.updateOperation("Customer", setColumns, "Login = 'admin'"));
 }
