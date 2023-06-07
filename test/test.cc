@@ -194,3 +194,11 @@ TEST(soldComposeTest, TestPositive)
     answer.push_back("CompositionID : 15\nName : Wildflower Fields\nAmount : 1\nCompPrice : 230.61\nTotalPrice : 230.61\n");
     EXPECT_EQ(c.soldCompose(), answer);
 }
+
+TEST(ordersByDateTest, TestPositive)
+{
+    controller c("greenhouse.db");
+    std::vector<std::string> answer;
+    answer.push_back("ID : 1\nAcceptance : 2023-01-02\nCompletion : 2023-01-04\nCustomerID : 1\n");
+    EXPECT_EQ(c.ordersByDate("2023-01-02"), answer);
+}
