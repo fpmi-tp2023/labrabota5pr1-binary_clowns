@@ -42,11 +42,6 @@ bool model::lookForData(std::string table, std::string column, std::string data)
                         column +
                         " FROM " + table +
                         " WHERE " + column + " = '" + data + "')";
-
-    if (db == nullptr)
-    {
-        return 0;
-    }
     result = sqlite3_exec(db, query.c_str(), lookForDataNCheckAdmin_callback, &callback_data, &errMsg);
     if (errMsg)
     {

@@ -39,3 +39,9 @@ TEST(md5Test, TestPositive){
     EXPECT_EQ(c.md5("123456"), "e10adc3949ba59abbe56e057f20f883e");
 }
 
+TEST(TestPasswordMatch, TestWhole)
+{
+    controller c("greenhouse.db");
+    EXPECT_TRUE(c.isAdmin("admin"));
+    EXPECT_FALSE(c.isAdmin("Vantuzz"));
+}
