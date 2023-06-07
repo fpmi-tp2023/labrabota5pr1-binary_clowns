@@ -176,3 +176,21 @@ TEST(flowersInfoTest, TestPositive)
     answer.push_back("Kind : Shrub\nTotalAmount : 57\n");
     EXPECT_EQ(c.flowersInfo("2022-03-12","2023-06-08"), answer);
 }
+
+TEST(soldComposeTest, TestPositive)
+{
+    controller c("greenhouse.db");
+    std::vector<std::string> answer;
+    answer.push_back("CompositionID : 1\nName : Summer Sunset\nAmount : 4\nCompPrice : 162.32\nTotalPrice : 649.28\n");
+    answer.push_back("CompositionID : 2\nName : Golden Fields\nAmount : 4\nCompPrice : 255.3\nTotalPrice : 1021.2\n");
+    answer.push_back("CompositionID : 3\nName : Meadow Breeze\nAmount : 2\nCompPrice : 123.85\nTotalPrice : 247.7\n");
+    answer.push_back("CompositionID : 4\nName : Autumn Harvest\nAmount : 1\nCompPrice : 161.31\nTotalPrice : 161.31\n");
+    answer.push_back("CompositionID : 6\nName : Snowy Mountains\nAmount : 1\nCompPrice : 348.85\nTotalPrice : 348.85\n");
+    answer.push_back("CompositionID : 8\nName : Garden Party\nAmount : 3\nCompPrice : 209.31\nTotalPrice : 627.93\n");
+    answer.push_back("CompositionID : 9\nName : Butterfly Garden\nAmount : 3\nCompPrice : 84.12\nTotalPrice : 252.36\n");
+    answer.push_back("CompositionID : 10\nName : Rose Garden\nAmount : 3\nCompPrice : 235.14\nTotalPrice : 705.42\n");
+    answer.push_back("CompositionID : 11\nName : Tropical Paradise\nAmount : 1\nCompPrice : 232.1\nTotalPrice : 232.1\n");
+    answer.push_back("CompositionID : 12\nName : Sunny Day\nAmount : 2\nCompPrice : 102.36\nTotalPrice : 204.72\n");
+    answer.push_back("CompositionID : 15\nName : Wildflower Fields\nAmount : 1\nCompPrice : 230.61\nTotalPrice : 230.61\n");
+    EXPECT_EQ(c.soldCompose(), answer);
+}
