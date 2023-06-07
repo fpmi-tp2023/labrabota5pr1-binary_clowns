@@ -153,4 +153,26 @@ TEST(mostPopularComposeTest, TestPositive)
     EXPECT_EQ(c.mostPopularCompose(), answer);
 }
 
+TEST(urgentOrdersTest, TestPositive)
+{
+    controller c("greenhouse.db");
+    std::vector<std::string> answer;
+    answer.push_back("Amount : 4\nDays : 1\n");
+    answer.push_back("Amount : 3\nDays : 2\n");
+    answer.push_back("Amount : 2\nDays : 3\n");
+    answer.push_back("Amount : 1\nDays : 4\n");
+    EXPECT_EQ(c.urgentOrders(), answer);
+}
 
+TEST(flowersInfoTest, TestPositive)
+{
+    controller c("greenhouse.db");
+    std::vector<std::string> answer;
+    answer.push_back("Kind : Annual\nTotalAmount : 302\n");
+    answer.push_back("Kind : Biennial\nTotalAmount : 26\n");
+    answer.push_back("Kind : Bulb\nTotalAmount : 211\n");
+    answer.push_back("Kind : Herb\nTotalAmount : 9\n");
+    answer.push_back("Kind : Perennial\nTotalAmount : 46\n");
+    answer.push_back("Kind : Shrub\nTotalAmount : 57\n");
+    EXPECT_EQ(c.flowersInfo("2022-03-12","2023-06-08"), answer);
+}
