@@ -213,3 +213,26 @@ TEST(customerOrdersTest, TestPositive)
     answer.push_back("EarnPerPeriod : 4284.02\n");
     EXPECT_EQ(c.customerOrders("2022-01-01", "2023-06-08", "Vantuzz"), answer);
 }
+
+TEST(getIDByLoginTest, TestPositive)
+{
+    controller c("greenhouse.db");
+    EXPECT_EQ(c.getIDByLogin("admin"), "0");
+}
+
+TEST(checkComposeIdTest, TestWhole)
+{
+    controller c("greenhouse.db");
+    EXPECT_TRUE(c.checkComposeId("1"));
+    EXPECT_FALSE(c.checkComposeId("-1"));
+}
+
+TEST(checkCostChangesTest, TestWhole)
+{
+    controller c("greenhouse.db");
+    std::vector<std::string> setColumns;
+    setColumns.push_back("Price = '10.22'");
+    EXPECT_FALSE(c.checkCostChanges(1, 1000));
+    EXPECT_TRUE(c.checkCostChanges(1, 10.23));
+    EXPECT_TRUE(c.updateOperation("Flower", setColumns, "ID = '1'"));
+}
