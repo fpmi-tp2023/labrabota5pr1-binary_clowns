@@ -31,3 +31,8 @@ TEST(createUserTest, TestNegative){
     controller c("greenhouse.db");
     EXPECT_FALSE(c.createUser("admin", "admin"));
 }
+
+TEST(md5Test, TestPositive){
+    controller c("greenhouse.db");
+    EXPECT_EQ(c.md5("123456"), "e10adc3949ba59abbe56e057f20f883e");
+}
