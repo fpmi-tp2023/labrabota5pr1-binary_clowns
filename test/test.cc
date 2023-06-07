@@ -142,3 +142,15 @@ TEST(deleteUserTest, TestPositiveWithDeleting)
     EXPECT_TRUE(c.deleteUser("NewUser"));
     EXPECT_TRUE(c.updateSQLSequence("Customer", "ID"));
 }
+
+TEST(mostPopularComposeTest, TestPositive)
+{
+    controller c("greenhouse.db");
+    std::vector<std::string> answer;
+    answer.push_back("FlowerID : 21\nName : Narcissus\nFlowersAmount : 15\nPrice : 9.99\nCompositionID : 2\nCompositionName : Golden Fields\n");
+    answer.push_back("FlowerID : 22\nName : Petunia\nFlowersAmount : 11\nPrice : 4.44\nCompositionID : 2\nCompositionName : Golden Fields\n");
+    answer.push_back("FlowerID : 23\nName : Poppy\nFlowersAmount : 17\nPrice : 3.33\nCompositionID : 2\nCompositionName : Golden Fields\n");
+    EXPECT_EQ(c.mostPopularCompose(), answer);
+}
+
+
