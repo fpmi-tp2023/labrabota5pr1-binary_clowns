@@ -70,10 +70,9 @@ std::string controller::getFullTable(std::string tablename)
     return info;
 }
 
-void controller::giveAdmin(std::string login)
+bool controller::giveAdmin(std::string login)
 {
-    dbModel->giveAdmin(login);
-    return;
+    return dbModel->giveAdmin(login);
 }
 
 bool controller::checkTable(std::string table)

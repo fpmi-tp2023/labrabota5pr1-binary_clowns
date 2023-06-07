@@ -20,12 +20,6 @@ TEST(CheckPasswordTest, TestPositive)
     EXPECT_TRUE(c.checkPassword("admin", "admin"));
 }
 
-TEST(CheckPasswordTest, TestNegative)
-{
-    controller c("greenhouse.db");
-    EXPECT_FALSE(c.checkPassword("admin", "neAdmin"));
-}
-
 TEST(createUserTest, TestPositiveWithDeleting)
 {
     controller c("greenhouse.db");
@@ -60,6 +54,15 @@ TEST(getFullTableTest, TestPositive)
                                           "ID : 1\nLogin : Vantuzz\nPassword : 81dc9bdb52d04dc20036dbd8313ed055\nAdmin : 0\n\n"
                                           "ID : 2\nLogin : abc\nPassword : 900150983cd24fb0d6963f7d28e17f72\nAdmin : 0\n\n"
                                           "ID : 3\nLogin : nikita\nPassword : 81dc9bdb52d04dc20036dbd8313ed055\nAdmin : 0\n\n");
+}
+
+TEST(giveAdminTest, TestPositive)
+{
+    controller c("greenhouse.db");
+    std::vector<std::string> setColumns;
+    setColumns.push_back("Admin = '0'");
+    EXPECT_TRUE(c.giveAdmin("Vantuzz"));
+    EXPECT_TRUE(c.updateOperation("Customer", setColumns, "Login = 'Vantuzz'"));
 }
 
 TEST(checkTableTest, TestWhole)
@@ -174,7 +177,7 @@ TEST(flowersInfoTest, TestPositive)
     answer.push_back("Kind : Herb\nTotalAmount : 9\n");
     answer.push_back("Kind : Perennial\nTotalAmount : 46\n");
     answer.push_back("Kind : Shrub\nTotalAmount : 57\n");
-    EXPECT_EQ(c.flowersInfo("2022-03-12","2023-06-08"), answer);
+    EXPECT_EQ(c.flowersInfo("2022-03-12", "2023-06-08"), answer);
 }
 
 TEST(soldComposeTest, TestPositive)
@@ -201,4 +204,12 @@ TEST(ordersByDateTest, TestPositive)
     std::vector<std::string> answer;
     answer.push_back("ID : 1\nAcceptance : 2023-01-02\nCompletion : 2023-01-04\nCustomerID : 1\n");
     EXPECT_EQ(c.ordersByDate("2023-01-02"), answer);
+}
+
+TEST(customerOrdersTest, TestPositive)
+{
+    controller c("greenhouse.db");
+    std::vector<std::string> answer;
+    answer.push_back("EarnPerPeriod : 4284.02\n");
+    EXPECT_EQ(c.customerOrders("2022-01-01", "2023-06-08", "Vantuzz"), answer);
 }

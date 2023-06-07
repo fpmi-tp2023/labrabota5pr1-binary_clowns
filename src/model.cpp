@@ -216,7 +216,7 @@ std::string model::getNumOfColumns(std::string tableName)
     return getSingleStringFromDB(query);
 }
 
-void model::giveAdmin(std::string login)
+bool model::giveAdmin(std::string login)
 {
     std::string query = "UPDATE Customer SET Admin = '1' WHERE Login = '" + login + "';";
     int result;
@@ -225,9 +225,11 @@ void model::giveAdmin(std::string login)
     if (errMsg)
     {
         std::cerr << errMsg << "\n";
+        delete errMsg;
+        return 0;
     }
     delete errMsg;
-    return;
+    return true;
 }
 
 bool model::deleteOperation(std::string tableName, std::string conditions)

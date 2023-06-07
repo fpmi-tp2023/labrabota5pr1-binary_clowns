@@ -23,7 +23,7 @@ public:
 
     std::vector<std::string> getTableInfo(std::string table, std::string conditions);
 
-    void giveAdmin(std::string login);
+    bool giveAdmin(std::string login);
 
     bool checkTable(std::string tableName);
 
