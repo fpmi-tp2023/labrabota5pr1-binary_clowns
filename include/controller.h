@@ -13,7 +13,7 @@ public:
     std::string md5(const std::string &str);
     bool isAdmin(std::string login);
     std::string getFullTable(std::string tablename);
-    void giveAdmin(std::string login);
+    bool giveAdmin(std::string login);
     bool checkTable(std::string table);
     bool checkColumn(std::string table, std::string column);
     int getNumOfColumns(std::string table);

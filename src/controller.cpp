@@ -33,14 +33,7 @@ bool controller::createUser(std::string login, std::string password)
     columns.push_back("Login");
     columns.push_back("Password");
     columns.push_back("Admin");
-    if (dbModel->insertOperation("Customer", values, columns))
-    {
-        return 1;
-    }
-    else
-    {
-        return 0;
-    }
+    return dbModel->insertOperation("Customer", values, columns);    
 }
 
 std::string controller::md5(const std::string &str)
@@ -77,10 +70,9 @@ std::string controller::getFullTable(std::string tablename)
     return info;
 }
 
-void controller::giveAdmin(std::string login)
+bool controller::giveAdmin(std::string login)
 {
-    dbModel->giveAdmin(login);
-    return;
+    return dbModel->giveAdmin(login);
 }
 
 bool controller::checkTable(std::string table)
