@@ -88,10 +88,27 @@ TEST(getNumOfRowsTest, TestWhole)
     EXPECT_EQ(c.getNumOfRows("Flower"), 25);
 }
 
-TEST(updateOperationTest, TestWhole)
+TEST(updateOperationTest, TestPositive)
 {
     controller c("greenhouse.db");
     std::vector<std::string> setColumns;
     setColumns.push_back("Admin = '1'");
     EXPECT_TRUE(c.updateOperation("Customer", setColumns, "Login = 'admin'"));
+}
+
+TEST(getColumnsNamesTest, TestPositive)
+{
+    controller c("greenhouse.db");
+    std::vector<std::string> columns;
+    columns.push_back("ID");
+    columns.push_back("Name");
+    EXPECT_EQ(c.getColumnsNames("Composition"), columns);
+}
+
+TEST(getPrymaryKeysTest, TestPositive)
+{
+    controller c("greenhouse.db");
+    std::vector<std::string> columns;
+    columns.push_back("ID");
+    EXPECT_EQ(c.getPrymaryKeys("Composition"), columns);
 }
