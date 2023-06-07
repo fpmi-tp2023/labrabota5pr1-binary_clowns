@@ -112,3 +112,33 @@ TEST(getPrymaryKeysTest, TestPositive)
     columns.push_back("ID");
     EXPECT_EQ(c.getPrymaryKeys("Composition"), columns);
 }
+
+TEST(lookInVectorTest, TestWhole)
+{
+    controller c("greenhouse.db");
+    std::vector<std::string> columns;
+    columns.push_back("ID");
+    columns.push_back("Name");
+    EXPECT_TRUE(c.lookInVector("ID", columns));
+    EXPECT_FALSE(c.lookInVector("info", columns));
+}
+
+TEST(insertOperationTest, TestPositiveWithDeleting)
+{
+    controller c("greenhouse.db");
+    std::vector<std::string> columns;
+    columns.push_back("Name");
+    std::vector<std::string> values;
+    values.push_back("NewComp");
+    EXPECT_TRUE(c.insertOperation("Composition", values, columns));
+    EXPECT_TRUE(c.deleteOperatin("Composition", "Name = 'NewComp'"));
+    EXPECT_TRUE(c.updateSQLSequence("Composition", "ID"));
+}
+
+TEST(deleteUserTest, TestPositiveWithDeleting)
+{
+    controller c("greenhouse.db");
+    EXPECT_TRUE(c.createUser("NewUser", "NewPassword"));
+    EXPECT_TRUE(c.deleteUser("NewUser"));
+    EXPECT_TRUE(c.updateSQLSequence("Customer", "ID"));
+}
